@@ -1,0 +1,60 @@
+.main-container {
+    -fx-background-color: white;
+}
+
+.login-container {
+    -fx-min-width: 400px;
+    -fx-background-color: white;
+}
+
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a237e;
+}
+
+.subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: #666666;
+    -fx-padding: 0 0 20 0;
+}
+
+.input-field {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 4px;
+    -fx-padding: 12px;
+    -fx-pref-height: 40px;
+}
+
+.input-field:focused {
+    -fx-border-color: #3f51b5;
+    -fx-border-width: 2px;
+}
+
+
+
+.login-button {
+    -fx-background-color: #3f51b5;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 12px;
+    -fx-pref-width: 350;
+    -fx-background-radius: 4px;
+    -fx-cursor: hand;
+}
+
+.login-button:hover {
+    -fx-background-color: #303f9f;
+}
+
+.illustration-container {
+    -fx-background-color: #f5f7ff;
+    -fx-alignment: center;
+    -fx-padding: 20px;
+}
+
+/* Shape the container with a wave */
+.illustration-container {
+    -fx-shape: "M 0 0 L 400 0 L 400 600 C 300 550, 200 650, 0 600 Z";
+}
