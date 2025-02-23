@@ -1,7 +1,8 @@
-create table users (
-   user_cin  varchar2(50) not null primary key,
-   user_name varchar2(50)  not null,
-   user_sal  number(4)
+CREATE TABLE users (
+   user_cin VARCHAR2(50) NOT NULL PRIMARY KEY,
+   user_name VARCHAR2(50) NOT NULL,
+   user_sal NUMBER(4),
+   user_password VARCHAR2(255) NOT NULL 
 );
 
 create table medecins (

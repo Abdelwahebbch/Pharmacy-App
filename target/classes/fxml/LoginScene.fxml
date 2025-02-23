@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="483.0" prefWidth="846.0" styleClass="main-container" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pharmacy.controller.LoginController">
 
@@ -30,8 +31,13 @@
                 
                 <HBox alignment="CENTER_RIGHT" />
 
-                <Button fx:id="logIn" prefHeight="44.0" prefWidth="94.0" styleClass="login-button" text="Login" />
+                <Button onAction="#Btnlogin" prefHeight="44.0" prefWidth="94.0" styleClass="login-button" text="Login" />
             </VBox>
+         <Label fx:id="errorLabel" prefHeight="93.0" prefWidth="378.0" textFill="RED">
+            <font>
+               <Font name="Segoe UI" size="25.0" />
+            </font>
+         </Label>
         </VBox>
 
         <!-- Right Side - Illustration -->
