@@ -2,8 +2,8 @@
     -fx-background-color: white;
 }
 
-.login-container {
-    -fx-min-width: 400px;
+.register-container {
+    -fx-min-width: 500px;
     -fx-background-color: white;
     -fx-padding: 40px;
 }
@@ -20,6 +20,12 @@
     -fx-padding: 0 0 20 0;
 }
 
+.field-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #2b3481;
+    -fx-font-weight: bold;
+}
+
 .input-field {
     -fx-background-color: white;
     -fx-border-color: #E0E0E0;
@@ -33,13 +39,8 @@
     -fx-border-width: 2px;
 }
 
-.register-link {
-    -fx-text-fill: #4a5bcc;
-    -fx-font-size: 12px;
-    -fx-underline: true;
-}
 
-.login-button {
+.register-button {
     -fx-background-color: #3f51b5;
     -fx-text-fill: white;
     -fx-font-size: 14px;
@@ -49,8 +50,23 @@
     -fx-cursor: hand;
 }
 
-.login-button:hover {
+.register-button:hover {
     -fx-background-color: #3a4bbc;
+}
+
+.login-link-container {
+    -fx-padding: 10 0 0 0;
+}
+
+.login-link-container Label {
+    -fx-text-fill: #666666;
+    -fx-font-size: 13px;
+}
+
+.login-link {
+    -fx-text-fill: #4a5bcc;
+    -fx-font-size: 13px;
+    -fx-underline: true;
 }
 
 .illustration-container {

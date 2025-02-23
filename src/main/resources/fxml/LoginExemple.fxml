@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="483.0" prefWidth="846.0" styleClass="main-container" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pharmacy.controller.LoginController">
+
+    <HBox AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        
+        <!-- Left Side - Login Form -->
+        <VBox spacing="20" styleClass="login-container" stylesheets="@styles.css">
+            <padding>
+                <Insets bottom="40" left="40" right="40" top="40" />
+            </padding>
+         <Label styleClass="title" stylesheets="@../css/styles.css" text="Login" />
+            <Label styleClass="subtitle" stylesheets="@../css/styles.css" text="Welcome to Pharmacist Platform" />
+
+            <VBox spacing="15" stylesheets="@../css/styles.css">
+                <TextField fx:id="userName" promptText="Username or email" styleClass="input-field" />
+                <PasswordField fx:id="pwd" promptText="Password" styleClass="input-field" />
+                
+                <HBox alignment="CENTER_RIGHT" />
+            </VBox>
+         <Label onMouseClicked="#register" styleClass="register" stylesheets="@../css/styles.css" text="Register">
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Label>
+
+             <Button onAction="#Btnlogin" prefHeight="44.0" prefWidth="94.0" styleClass="login-button" stylesheets="@../css/styles.css" text="Login" />
+         <Label fx:id="errorLabel" prefHeight="93.0" prefWidth="378.0" stylesheets="@../css/styles.css" textFill="RED">
+            <font>
+               <Font name="Segoe UI" size="25.0" />
+            </font>
+         </Label>
+        </VBox>
+
+        <!-- Right Side - Illustration -->
+        <StackPane styleClass="illustration-container" stylesheets="@../css/styles.css">
+            <ImageView fitHeight="318.0" fitWidth="384.0" preserveRatio="true">
+            <image>
+               <Image url="@../images/Login%20Page.jpg" />
+            </image>
+            </ImageView>
+        </StackPane>
+    </HBox>
+</AnchorPane>

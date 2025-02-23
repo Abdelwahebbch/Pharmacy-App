@@ -4,16 +4,22 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import com.pharmacy.app.*;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
-public class LoginController extends App {
-    // protected static final String url = "jdbc:oracle:thin:@localhost:1521:FREE";
-    // protected static final String user = "pharmacydatabase";
-    // protected static final String password = "1234";
+public class LoginController {
+    protected static final String url = "jdbc:oracle:thin:@localhost:1521:FREE";
+    protected static final String user = "pharmacydatabase";
+    protected static final String password = "1234";
 
     @FXML
     private PasswordField pwd;
@@ -51,5 +57,16 @@ public class LoginController extends App {
 
             return resultSet.next();
         }
+    }
+
+    @FXML
+    void register(MouseEvent event) throws Exception {
+
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/register.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }
 }

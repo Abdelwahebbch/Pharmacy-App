@@ -5,12 +5,13 @@
 .login-container {
     -fx-min-width: 400px;
     -fx-background-color: white;
+    -fx-padding: 40px;
 }
 
 .title {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
-    -fx-text-fill: #1a237e;
+    -fx-text-fill: #2b3481;
 }
 
 .subtitle {
@@ -28,11 +29,15 @@
 }
 
 .input-field:focused {
-    -fx-border-color: #3f51b5;
+    -fx-border-color: #4a5bcc;
     -fx-border-width: 2px;
 }
 
-
+.register-link {
+    -fx-text-fill: #4a5bcc;
+    -fx-font-size: 12px;
+    -fx-underline: true;
+}
 
 .login-button {
     -fx-background-color: #3f51b5;
@@ -45,16 +50,22 @@
 }
 
 .login-button:hover {
-    -fx-background-color: #303f9f;
+    -fx-background-color: #3a4bbc;
 }
 
 .illustration-container {
-    -fx-background-color: #f5f7ff;
+    -fx-background-color: #f0f3ff;
+    -fx-min-width: 500px;
     -fx-alignment: center;
-    -fx-padding: 20px;
 }
 
-/* Shape the container with a wave */
+.illustration-image {
+    -fx-fit-width: 450px;
+    -fx-fit-height: 400px;
+    -fx-preserve-ratio: true;
+}
+
+/* Custom shape for the wave effect */
 .illustration-container {
-    -fx-shape: "M 0 0 L 400 0 L 400 600 C 300 550, 200 650, 0 600 Z";
+    -fx-shape: "M 0 0 L 500 0 L 500 600 Q 400 550, 300 600 L 0 600 Z";
 }

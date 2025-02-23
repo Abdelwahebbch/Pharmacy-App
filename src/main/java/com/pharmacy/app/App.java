@@ -9,9 +9,7 @@ import javafx.stage.Stage;
 
 public class App extends Application {
 
-    protected static final String url = "jdbc:oracle:thin:@localhost:1521:FREE";
-    protected static final String user = "pharmacydatabase";
-    protected static final String password = "1234";
+  
 
 
     @Override
