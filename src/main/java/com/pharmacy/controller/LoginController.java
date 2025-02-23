@@ -1,4 +1,4 @@
-package pharmacy.controller;
+package com.pharmacy.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
