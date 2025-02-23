@@ -1,11 +1,19 @@
 create or replace procedure create_user (
-   user_name in varchar,
-   cin  in varchar,
-   sal  in number
+   cin            in varchar,
+   user_name      in varchar,
+   user_last_name in varchar,
+   user_password  in varchar,
+   user_email     in varchar,
+   user_phone     in varchar,
+   sal            in number
 ) as
 begin
    insert into users values ( cin,
                               user_name,
+                              user_last_name,
+                              user_password,
+                              user_email,
+                              user_phone,
                               sal );
 exception
    when others then
