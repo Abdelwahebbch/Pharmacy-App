@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.EventObject;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,17 +32,24 @@ public class LoginController {
 
     @FXML
 
-    private void Btnlogin() throws Exception {
+    private void Btnlogin(MouseEvent event) throws Exception {
         String username = userName.getText();
         String pwrd = pwd.getText();
 
         if (authenticate(username, pwrd)) {
             errorLabel.setText("Connexion réussie !");
             errorLabel.setStyle("-fx-text-fill: green;");
+
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/AdminScene.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            stage.setScene(new Scene(root));
+            stage.show();
         } else {
             errorLabel.setText("Identifiants incorrects !");
             errorLabel.setStyle("-fx-text-fill: red;");
         }
+
     }
 
     private boolean authenticate(String username, String pwrd) throws Exception {

@@ -35,7 +35,7 @@
                     <Hyperlink onMouseClicked="#register" styleClass="register-link" stylesheets="@styles.css" text="Register" />
                 </HBox>
 
-                <Button styleClass="login-button" text="Login" />
+                <Button onMouseClicked="#Btnlogin" styleClass="login-button" text="Login" />
             </VBox>
          <Label fx:id="errorLabel" contentDisplay="CENTER" prefHeight="38.0" prefWidth="340.0" />
         </VBox>

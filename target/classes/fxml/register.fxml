@@ -69,7 +69,7 @@
                 <!-- Login Link -->
                 <HBox alignment="CENTER" styleClass="login-link-container">
                     <Label text="Already have an account? " />
-                    <Hyperlink onMouseDragged="#login" styleClass="login-link" text="Login here" />
+                    <Hyperlink onMouseClicked="#login" styleClass="login-link" stylesheets="@../css/register-styles.css" text="Login here" />
                 </HBox>
             </VBox>
         </VBox>
