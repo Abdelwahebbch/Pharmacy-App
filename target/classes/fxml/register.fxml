@@ -48,7 +48,7 @@
                 <!-- Phone -->
                 <VBox spacing="5">
                     <Label styleClass="field-label" text="Phone Number" />
-                    <TextField fx:id="phoneNb" promptText="+216 12 345 678" styleClass="input-field" />
+                    <TextField fx:id="phoneNb" promptText="+216 21 469 792 Call Big Mama Abdo" styleClass="input-field" />
                 </VBox>
 
                 <!-- Password -->

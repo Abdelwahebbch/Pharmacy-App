@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pharmacy.controller.HomeController">
+   <children>
+      <!-- Header -->
+      <HBox alignment="CENTER" layoutX="0.0" layoutY="0.0" prefHeight="60.0" prefWidth="900.0" spacing="15.0" style="-fx-background-color: white; -fx-border-color: #DDDDDD; -fx-border-width: 0 0 1 0; -fx-padding: 0 15;">
+         <children>
+            <Label text="Villa Booking" textFill="#ff385c">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="300.0" spacing="10.0" style="-fx-background-color: white; -fx-border-color: #DDDDDD; -fx-border-radius: 20; -fx-background-radius: 20;">
+               <children>
+                  <TextField prefWidth="120.0" promptText="Location" style="-fx-background-color: transparent;" />
+                  <TextField prefWidth="80.0" promptText="Dates" style="-fx-background-color: transparent;" />
+                  <Button mnemonicParsing="false" style="-fx-background-color: #FF385C; -fx-text-fill: white; -fx-background-radius: 50%;" text="🔍" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Login" />
+                  <Button mnemonicParsing="false" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-color: #DDDDDD;" text="Menu" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+
+      <!-- Main Content -->
+      <ScrollPane fitToWidth="true" layoutY="60.0" prefHeight="590.0" prefWidth="900.0" style="-fx-background-color: white;">
+         <content>
+            <VBox spacing="15.0" style="-fx-padding: 15;">
+               <children>
+                  <!-- Title Section -->
+                  <HBox alignment="CENTER_LEFT" spacing="15.0">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label text="B&amp;B VILLA DEL VENTO">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Label>
+                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label text="⭐ 5.0" />
+                                    <Label text="•" />
+                                    <Label text="Marsala, Italy" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Share" />
+                              <Button mnemonicParsing="false" style="-fx-background-color: transparent;" text="Save" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+
+                  <!-- Image Gallery -->
+                  <HBox spacing="8.0">
+                     <children>
+                        <ImageView fx:id="mainImage" fitHeight="300.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: #F0F0F0; -fx-background-radius: 10;" />
+                        <VBox spacing="8.0">
+                           <children>
+                              <ImageView fx:id="image1" fitHeight="146.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: #F0F0F0; -fx-background-radius: 10;" />
+                              <ImageView fx:id="image2" fitHeight="146.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: #F0F0F0; -fx-background-radius: 10;" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+
+                  <!-- Details Section -->
+                  <HBox spacing="20.0">
+                     <children>
+                        <!-- Left Column -->
+                        <VBox prefWidth="500.0" spacing="15.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                 <children>
+                                    <ImageView fx:id="hostImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: #F0F0F0; -fx-background-radius: 25;" />
+                                    <VBox>
+                                       <children>
+                                          <Label text="Hosted by Antonino">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Host since 11 years" textFill="#717171" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label text="2 guests • 1 bedroom • 2 beds • 1 shared bath" textFill="#717171" />
+                           </children>
+                        </VBox>
+
+                        <!-- Booking Widget -->
+                        <VBox maxWidth="300.0" style="-fx-background-color: white; -fx-border-color: #DDDDDD; -fx-border-radius: 10; -fx-padding: 15;">
+                           <children>
+                              <HBox alignment="CENTER_LEFT">
+                                 <children>
+                                    <Label text="€80 ">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="night" />
+                                 </children>
+                              </HBox>
+                              <VBox spacing="10.0" style="-fx-padding: 10 0;">
+                                 <children>
+                                    <DatePicker fx:id="checkInDate" prefWidth="270.0" promptText="Check-in" />
+                                    <DatePicker fx:id="checkOutDate" prefWidth="270.0" promptText="Check-out" />
+                                    <ComboBox fx:id="guestsCombo" prefWidth="270.0" promptText="1 guest" />
+                                    <Button fx:id="reserveButton" mnemonicParsing="false" prefHeight="35.0" prefWidth="270.0" style="-fx-background-color: #FF385C; -fx-text-fill: white; -fx-background-radius: 8;" text="Reserve">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                              <Label alignment="CENTER" prefWidth="270.0" text="You won't be charged yet" textFill="#717171" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
