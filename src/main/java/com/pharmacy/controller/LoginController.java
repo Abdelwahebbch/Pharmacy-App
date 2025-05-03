@@ -4,7 +4,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.EventObject;
+
+import com.pharmacy.util.SceneSwitcher;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -69,12 +70,11 @@ public class LoginController {
 
     @FXML
     void register(MouseEvent event) throws Exception {
-
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/register.fxml"));
+        Scene newScene = new Scene(root);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        stage.setScene(new Scene(root));
-        stage.show();
-
+        SceneSwitcher.switchSceneWithFade(stage, newScene, 0); 
     }
+
 }

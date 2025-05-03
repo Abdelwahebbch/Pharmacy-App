@@ -29,7 +29,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #34495e;" text="Dashboard" textFill="WHITE">
+            <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleDashboardButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #34495e;" text="Dashboard" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -53,23 +53,15 @@
                   <Insets left="20.0" />
                </padding>
             </Button>
-            <Button fx:id="salesButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleSalesButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Sales" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="20.0" />
-               </padding>
-            </Button>
-            <Button fx:id="customersButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleCustomersButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Customers" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="20.0" />
-               </padding>
-            </Button>
             <Button fx:id="settingsButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleSettingsButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Settings" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Button>
+            <Button fx:id="LogoutButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -83,7 +75,7 @@
    <center>
       <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
          <content>
-            <AnchorPane>
+            <AnchorPane fx:id="anScene">
                <children>
                   <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <padding>
