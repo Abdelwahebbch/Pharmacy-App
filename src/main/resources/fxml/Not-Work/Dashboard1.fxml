@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+    <!-- Top Bar -->
+    <top>
+        <HBox style="-fx-background-color: #2a9d8f;" spacing="10.0" alignment="CENTER_LEFT" prefHeight="60.0">
+            <Label text="Pharmacy Management System" style="-fx-font-size: 20px; -fx-text-fill: white;" padding="20.0"/>
+        </HBox>
+    </top>
+
+    <!-- Side Menu -->
+    <left>
+        <VBox spacing="10.0" prefWidth="200.0" style="-fx-background-color: #264653;" padding="20.0">
+            <Button text="Dashboard" prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" />
+            <Button text="Medicines" prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" />
+            <Button text="Sales" prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" />
+            <Button text="Customers" prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" />
+            <Button text="Reports" prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" />
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <AnchorPane fx:id="contentArea" style="-fx-background-color: #f4f4f4;">
+            <Label text="Welcome to the Dashboard!" layoutX="50.0" layoutY="50.0"
+                   style="-fx-font-size: 18px;" />
+        </AnchorPane>
+    </center>
+
+</BorderPane>

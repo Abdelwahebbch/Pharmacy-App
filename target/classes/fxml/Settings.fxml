@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pharmacy.controller.SettingsController">
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+         <content>
+            <AnchorPane>
+               <children>
+                  <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                     <children>
+                        <Label text="Settings">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        
+                        <!-- Application Settings -->
+                        <TitledPane animated="false" expanded="true" text="Application Settings">
+                           <content>
+                              <GridPane hgap="15.0" vgap="15.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="150.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Theme:" />
+                                    <ComboBox fx:id="themeComboBox" prefWidth="200.0" GridPane.columnIndex="1" />
+                                    
+                                    <Label text="Language:" GridPane.rowIndex="1" />
+                                    <ComboBox fx:id="languageComboBox" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    
+                                    <Label text="Auto-save Interval:" GridPane.rowIndex="2" />
+                                    <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                       <children>
+                                          <Spinner fx:id="autoSaveIntervalSpinner" prefWidth="100.0" />
+                                          <Label text="minutes" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </GridPane>
+                           </content>
+                        </TitledPane>
+                        
+                        <!-- Notification Settings -->
+                        <TitledPane animated="false" expanded="true" text="Notification Settings">
+                           <content>
+                              <VBox spacing="15.0">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <children>
+                                    <CheckBox fx:id="enableNotificationsCheckbox" mnemonicParsing="false" text="Enable Notifications" />
+                                    <Label text="Receive notifications for:" />
+                                    <GridPane hgap="15.0" vgap="10.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <CheckBox mnemonicParsing="false" selected="true" text="Low Stock Alerts" />
+                                          <CheckBox mnemonicParsing="false" selected="true" text="Expiring Medication Alerts" GridPane.columnIndex="1" />
+                                          <CheckBox mnemonicParsing="false" selected="true" text="New Prescriptions" GridPane.rowIndex="1" />
+                                          <CheckBox mnemonicParsing="false" selected="true" text="System Updates" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </TitledPane>
+                        
+                        <!-- Backup Settings -->
+                        <TitledPane animated="false" expanded="true" text="Backup Settings">
+                           <content>
+                              <VBox spacing="15.0">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <children>
+                                    <CheckBox fx:id="enableAutoBackupCheckbox" mnemonicParsing="false" text="Enable Automatic Backups" />
+                                    
+                                    <VBox fx:id="autoBackupSettingsVBox" spacing="15.0">
+                                       <children>
+                                          <GridPane hgap="15.0" vgap="15.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="150.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="400.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="Backup Frequency:" />
+                                                <ComboBox fx:id="backupFrequencyComboBox" prefWidth="200.0" GridPane.columnIndex="1" />
+                                                
+                                                <Label text="Backup Location:" GridPane.rowIndex="1" />
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <TextField fx:id="backupLocationField" prefWidth="300.0" />
+                                                      <Button fx:id="browseButton" mnemonicParsing="false" onAction="#handleBrowseButton" text="Browse..." />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </GridPane>
+                                          
+                                          <Button mnemonicParsing="false" onAction="#handleCreateBackupNow" style="-fx-background-color: #3498db;" text="Create Backup Now" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Button>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </TitledPane>
+                        
+                        <Separator />
+                        
+                        <!-- Action Buttons -->
+                        <HBox alignment="CENTER_RIGHT" spacing="15.0">
+                           <children>
+                              <Button fx:id="resetSettingsButton" mnemonicParsing="false" onAction="#handleResetSettings" style="-fx-background-color: #e74c3c;" text="Reset to Default" textFill="WHITE" />
+                              <Button fx:id="saveSettingsButton" mnemonicParsing="false" onAction="#handleSaveSettings" style="-fx-background-color: #2ecc71;" text="Save Settings" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </center>
+</BorderPane>
