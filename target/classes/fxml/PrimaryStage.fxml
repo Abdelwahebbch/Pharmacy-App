@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pharmacy.controller.DashboardController">
+   <left>
+      <VBox prefHeight="800.0" prefWidth="200.0" style="-fx-background-color: #2c3e50;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="60.0" prefWidth="200.0" style="-fx-background-color: #1abc9c;" text="Pharmacy System" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleDashboardButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #34495e;" text="Dashboard" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Button>
+            <Button fx:id="inventoryButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleInventoryButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Inventory" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Button>
+            <Button fx:id="prescriptionsButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handlePrescriptionsButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Prescriptions" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Button>
+            <Button fx:id="settingsButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleSettingsButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Settings" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Button>
+            <Button fx:id="LogoutButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Logout" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+         <content>
+            <AnchorPane fx:id="anScene" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+               <children>
+                  <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label text="Dashboard Overview">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        
+                        <!-- Summary Cards -->
+                        <GridPane hgap="20.0" vgap="20.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <VBox alignment="CENTER" style="-fx-background-color: #3498db; -fx-background-radius: 5;">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="Total Sales" textFill="WHITE">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="totalSalesLabel" text="\$0.00" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              
+                              <VBox alignment="CENTER" style="-fx-background-color: #2ecc71; -fx-background-radius: 5;" GridPane.columnIndex="1">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="Prescriptions" textFill="WHITE">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="totalPrescriptionsLabel" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              
+                              <VBox alignment="CENTER" style="-fx-background-color: #e74c3c; -fx-background-radius: 5;" GridPane.columnIndex="2">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="Low Stock Items" textFill="WHITE">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="lowStockLabel" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              
+                              <VBox alignment="CENTER" style="-fx-background-color: #f39c12; -fx-background-radius: 5;" GridPane.columnIndex="3">
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                                 <children>
+                                    <Label text="Expiring Soon" textFill="WHITE">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="expiringItemsLabel" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </GridPane>
+                        
+                        <!-- Charts Section -->
+                        <HBox spacing="20.0">
+                           <children>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Monthly Sales">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <BarChart fx:id="salesBarChart" legendVisible="false" VBox.vgrow="ALWAYS">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </BarChart>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Prescription Trends">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <LineChart fx:id="trendsLineChart" VBox.vgrow="ALWAYS">
+                                       <xAxis>
+                                          <CategoryAxis side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        
+                        <!-- Tables and Pie Chart Section -->
+                        <HBox spacing="20.0">
+                           <children>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Recent Sales">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="recentSalesTable" prefHeight="250.0" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn prefWidth="150.0" text="Medication" />
+                                          <TableColumn prefWidth="100.0" text="Quantity" />
+                                          <TableColumn prefWidth="100.0" text="Price" />
+                                          <TableColumn prefWidth="150.0" text="Date" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Low Stock Items">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <TableView fx:id="lowStockTable" prefHeight="250.0" VBox.vgrow="ALWAYS">
+                                       <columns>
+                                          <TableColumn prefWidth="150.0" text="Medication" />
+                                          <TableColumn prefWidth="100.0" text="Category" />
+                                          <TableColumn prefWidth="100.0" text="Quantity" />
+                                          <TableColumn prefWidth="150.0" text="Reorder Level" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Sales by Category">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <PieChart fx:id="categoryPieChart" prefHeight="250.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </center>
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="60.0" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Pharmacy Management System">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label text="Admin">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
