@@ -1,2 +1,2 @@
 # Pharmacy-App
-This is a pharmacy application 
+A comprehensive pharmacy management system built with Java ,JavaFx , and Oracle PLSQL.
