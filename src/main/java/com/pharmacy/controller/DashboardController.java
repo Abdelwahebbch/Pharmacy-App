@@ -16,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 
 public class DashboardController {
     @FXML
-    public AnchorPane anScene;
+    public AnchorPane MainScene;
 
     @FXML
     private Button LogoutButton;
@@ -62,29 +62,29 @@ public class DashboardController {
 
     @FXML
     void handleDashboardButton(ActionEvent event) {
-        SceneSwitcher.setContent(anScene, "/fxml/Dashboard.fxml");
+        SceneSwitcher.setContent(MainScene, "/fxml/Dashboard.fxml");
     }
 
     @FXML
     void handleInventoryButton(ActionEvent event) throws IOException {
 
-        SceneSwitcher.setContent(anScene, "/fxml/Inventory.fxml");
+        SceneSwitcher.setContent(MainScene, "/fxml/Inventory.fxml");
     }
 
+    
+    @FXML
+    void handlePrescriptionsButton(ActionEvent event) throws IOException {
+        
+        SceneSwitcher.setContent(MainScene, "/fxml/Prescription.fxml");
+    }
+    
+    @FXML
+    void handleSettingsButton(ActionEvent event) throws IOException {
+        SceneSwitcher.setContent(MainScene, "/fxml/Settings.fxml");
+    }
     @FXML
     void handleLogoutButton(ActionEvent event) {
 
-    }
-
-    @FXML
-    void handlePrescriptionsButton(ActionEvent event) throws IOException {
-
-        SceneSwitcher.setContent(anScene, "/fxml/Prescription.fxml");
-    }
-
-    @FXML
-    void handleSettingsButton(ActionEvent event) throws IOException {
-        SceneSwitcher.setContent(anScene, "/fxml/Settings.fxml");
     }
 
 }

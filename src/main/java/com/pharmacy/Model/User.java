@@ -1,45 +1,79 @@
 package com.pharmacy.Model;
 
-import java.time.LocalDate;
-
 public class User {
-    private int id;
-    private String username;
-    private String fullName;
+    private int cin;
+    private String name;
+    private String lastName;
+    private int password;
     private String email;
-    private String role;
-    private boolean active;
-    private LocalDate lastLogin;
-    
-    public User(int id, String username, String fullName, String email, String role, boolean active, LocalDate lastLogin) {
-        this.id = id;
-        this.username = username;
-        this.fullName = fullName;
+    private String phone;
+
+    private double salary;
+
+    public User(int cin, String name, String lastName, String email, String phone, String password, double salary) {
+        this.cin = cin;
+        this.name = name;
+        this.lastName = lastName;
         this.email = email;
-        this.role = role;
-        this.active = active;
-        this.lastLogin = lastLogin;
+        this.password = password.hashCode();
+        this.phone = phone;
+        this.salary = salary;
     }
-    
-    // Getters and setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
-    
-    public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
-    
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-    
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
-    
-    public boolean isActive() { return active; }
-    public void setActive(boolean active) { this.active = active; }
-    
-    public LocalDate getLastLogin() { return lastLogin; }
-    public void setLastLogin(LocalDate lastLogin) { this.lastLogin = lastLogin; }
+
+    public int getCin() {
+        return cin;
+    }
+
+    public void setCin(int cin) {
+        this.cin = cin;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getPassword() {
+        return password;
+    }
+
+    public void setPassword(int password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
 }

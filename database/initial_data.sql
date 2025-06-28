@@ -1,1 +1,1 @@
-COMMIT ;
+insert into users VALUES ('11189991','a','a','a','a','a',50);

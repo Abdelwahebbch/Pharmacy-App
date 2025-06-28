@@ -38,6 +38,10 @@ public class SceneSwitcher {
     public static void setContent(AnchorPane targetPane, String fxmlPath) {
         try {
             Parent node = FXMLLoader.load(SceneSwitcher.class.getResource(fxmlPath));
+            AnchorPane.setTopAnchor(node, 0.0);
+            AnchorPane.setBottomAnchor(node, 0.0);
+            AnchorPane.setLeftAnchor(node, 0.0);
+            AnchorPane.setRightAnchor(node, 0.0);
             targetPane.getChildren().setAll(node);
         } catch (IOException e) {
             System.err.println("Erreur !!");
