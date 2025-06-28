@@ -1,15 +1,15 @@
 package com.pharmacy.Model;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Medication {
     private String name;
     private String category;
     private double price;
     private int quantity;
-    private LocalDate expiryDate;
+    private Date expiryDate;
     
-    public Medication(String name, String category, double price, int quantity, LocalDate expiryDate) {
+    public Medication(String name, String category, double price, int quantity, Date expiryDate) {
         this.name = name;
         this.category = category;
         this.price = price;
@@ -30,6 +30,6 @@ public class Medication {
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
     
-    public LocalDate getExpiryDate() { return expiryDate; }
-    public void setExpiryDate(LocalDate expiryDate) { this.expiryDate = expiryDate; }
+    public Date getExpiryDate() { return expiryDate; }
+    public void setExpiryDate(Date expiryDate) { this.expiryDate = expiryDate; }
 }

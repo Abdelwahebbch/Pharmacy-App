@@ -1,17 +1,24 @@
 package com.pharmacy.controller;
 
+import com.pharmacy.Model.Medication;
+import com.pharmacy.Model.Prescription;
+import com.pharmacy.util.DataBaseConnection;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
-public class PrescriptionController {
+import java.net.URL;
+import java.sql.*;
+import java.time.LocalDate;
+import java.util.ResourceBundle;
+
+public class PrescriptionController implements Initializable {
 
     @FXML
     private Button addButton;
@@ -23,93 +30,162 @@ public class PrescriptionController {
     private Button deleteButton;
 
     @FXML
-    private TableColumn<?, ?> doctorNameColumn;
+    private Button updateButton;
 
     @FXML
     private TextField doctorNameField;
 
     @FXML
-    private TableColumn<?, ?> expiryDateColumn;
+    private TextArea medicationsArea;
 
     @FXML
-    private DatePicker expiryDatePicker;
+    private ComboBox<String> patientComboBox;
 
     @FXML
-    private TableColumn<?, ?> idColumn;
-
-    @FXML
-    private TableColumn<?, ?> issueDateColumn;
+    private ComboBox<String> statusComboBox;
 
     @FXML
     private DatePicker issueDatePicker;
 
     @FXML
-    private TextArea medicationsArea;
-
-    @FXML
-    private ComboBox<?> patientComboBox;
-
-    @FXML
-    private TableColumn<?, ?> patientNameColumn;
-
-    @FXML
-    private TableView<?> prescriptionTable;
+    private DatePicker expiryDatePicker;
 
     @FXML
     private TextField searchField;
 
     @FXML
-    private TableColumn<?, ?> statusColumn;
+    private TableView<Prescription> prescriptionTable;
 
     @FXML
-    private ComboBox<?> statusComboBox;
+    private TableColumn<Prescription, Integer> idColumn;
 
     @FXML
-    private Button updateButton;
+    private TableColumn<Prescription, String> patientNameColumn;
+
+    @FXML
+    private TableColumn<Prescription, String> doctorNameColumn;
+
+    @FXML
+    private TableColumn<Prescription, Date> issueDateColumn;
+
+    @FXML
+    private TableColumn<Prescription, Date> expiryDateColumn;
+
+    @FXML
+    private TableColumn<Prescription, String> statusColumn;
+
+    private ObservableList<Prescription> prescriptionList = FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Configurer les colonnes
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        patientNameColumn.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+        doctorNameColumn.setCellValueFactory(new PropertyValueFactory<>("doctorName"));
+        issueDateColumn.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
+        expiryDateColumn.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
+        statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        // Remplir combo box statut
+        statusComboBox.setItems(FXCollections.observableArrayList("Malade", "Others"));
+
+        // Exemple de requête pour remplir la table avec des prescriptions fictives
+        String query = "SELECT * FROM prescriptions ";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+                PreparedStatement stm = conn.prepareStatement(query);
+                ResultSet res = stm.executeQuery()) {
+
+            while (res.next()) {
+                Prescription prescription = new Prescription(
+                        res.getString("pres_id"),
+                        res.getString("patient_name"),
+                        res.getString("doctor_name"),
+                        res.getDate("issue_date"),
+                        res.getDate("med_exp"),
+                        res.getString("Status"),
+                        res.getString("medications"));
+                prescriptionList.add(prescription);
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            System.err.println("Erreur lors du chargement des données !");
+            e.printStackTrace();
+        }
+
+        prescriptionTable.setItems(prescriptionList);
+    }
 
     @FXML
     void handleAddPrescription(ActionEvent event) {
-
+        // À implémenter
     }
 
     @FXML
     void handleClearFields(ActionEvent event) {
-
+        doctorNameField.clear();
+        patientComboBox.setValue(null);
+        issueDatePicker.setValue(null);
+        expiryDatePicker.setValue(null);
+        statusComboBox.setValue(null);
+        medicationsArea.clear();
     }
 
     @FXML
     void handleCreateSale(ActionEvent event) {
-
+        // À implémenter
     }
 
     @FXML
     void handleDeletePrescription(ActionEvent event) {
-
+        // À implémenter
     }
 
     @FXML
     void handleNewPatient(ActionEvent event) {
-
+        // À implémenter
     }
 
     @FXML
     void handlePrescriptionSelection(MouseEvent event) {
-
+        Prescription selectedPrescription = prescriptionTable.getSelectionModel().getSelectedItem();
+        if (selectedPrescription != null) {
+            patientComboBox.setValue(selectedPrescription.getPatientName());
+            doctorNameField.setText(selectedPrescription.getDoctorName());
+            issueDatePicker.setValue(selectedPrescription.getIssueDate().toLocalDate());
+            expiryDatePicker.setValue(selectedPrescription.getExpiryDate().toLocalDate());
+            statusComboBox.setValue(selectedPrescription.getStatus());
+            medicationsArea.setText(selectedPrescription.getMedications());
+        }
     }
 
     @FXML
     void handlePrintPrescription(ActionEvent event) {
-
+        // À implémenter
     }
 
     @FXML
     void handleSearchPrescription(ActionEvent event) {
+        String searchTerm = searchField.getText().toLowerCase();
 
+        if (searchTerm.isEmpty()) {
+            prescriptionTable.setItems(prescriptionList);
+            return;
+        }
+
+        ObservableList<Prescription> filteredList = FXCollections.observableArrayList();
+        for (Prescription p : prescriptionList) {
+            if (p.getDoctorName().toLowerCase().contains(searchTerm) ||
+                    p.getPatientName().toLowerCase().contains(searchTerm)) {
+                filteredList.add(p);
+            }
+        }
+
+        prescriptionTable.setItems(filteredList);
     }
 
     @FXML
     void handleUpdatePrescription(ActionEvent event) {
-
+        // À implémenter
     }
-
 }

@@ -57,14 +57,17 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="medicationTable" onMouseClicked="#handleMedicationSelection" VBox.vgrow="ALWAYS">
+                              <TableView fx:id="medicationTable" editable="true" onMouseClicked="#handleMedicationSelection" VBox.vgrow="ALWAYS">
                                  <columns>
-                                    <TableColumn prefWidth="150.0" text="Name" />
-                                    <TableColumn prefWidth="100.0" text="Category" />
-                                    <TableColumn prefWidth="100.0" text="Price" />
-                                    <TableColumn prefWidth="100.0" text="Quantity" />
-                                    <TableColumn prefWidth="150.0" text="Expiry Date" />
+                                    <TableColumn fx:id="name" prefWidth="150.0" text="Name" />
+                                    <TableColumn fx:id="category" prefWidth="100.0" text="Category" />
+                                    <TableColumn fx:id="price" prefWidth="100.0" text="Price" />
+                                    <TableColumn fx:id="quantity" prefWidth="100.0" text="Quantity" />
+                                    <TableColumn fx:id="exp" prefWidth="150.0" text="Expiry Date" />
                                  </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </VBox>
