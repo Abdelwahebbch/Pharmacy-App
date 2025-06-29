@@ -69,6 +69,27 @@ public class PrescriptionDAO {
     }
 
     public static void deletePrescription(ObservableList<Prescription> prescriptionList) {
+        String query = "delete from  prescriptions where pres_id = ? ";
+
+        try (Connection conn = DataBaseConnection.getConnection();
+                PreparedStatement stm = conn.prepareStatement(query)) {
+            for (Prescription p : prescriptionList) {
+                stm.setString(1, p.getId());
+
+                int rowsAffected = stm.executeUpdate();
+                if (rowsAffected > 0) {
+                    System.out.println("Prescription with ID " + p.getId() + " deleted successfully.");
+                } else {
+                    System.out.println("No Prescription delete for ID " + p.getId());
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error when deleting ");
+            System.err.println(e.getMessage());
+
+        }
+        prescriptionList.clear();
+
     }
 
     public static void updatePrescription(ObservableList<Prescription> prescriptionList) {

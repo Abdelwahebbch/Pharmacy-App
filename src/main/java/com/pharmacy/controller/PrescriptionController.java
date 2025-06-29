@@ -203,8 +203,8 @@ public class PrescriptionController implements Initializable {
             // Refresh table
             prescriptionTable.refresh();
             updatedPrescriptionList
-                    .add(new Prescription(phone, patient, doctor,issue_date, expiry_date, status,medications));
-           PrescriptionDAO.updatePrescription(updatedPrescriptionList);
+                    .add(new Prescription(phone, patient, doctor, issue_date, expiry_date, status, medications));
+            PrescriptionDAO.updatePrescription(updatedPrescriptionList);
             // Clear fields
             handleClearFields();
 
@@ -215,7 +215,16 @@ public class PrescriptionController implements Initializable {
 
     @FXML
     void handleDeletePrescription(ActionEvent event) {
-        // À implémenter
+        Prescription selectedPrescription = prescriptionTable.getSelectionModel().getSelectedItem();
+        if (selectedPrescription == null) {
+            // Show error message
+            return;
+        }
+        deletedPrescriptionList.add(selectedPrescription);
+        PrescriptionDAO.deletePrescription(deletedPrescriptionList);
+        prescriptionList.remove(selectedPrescription);
+        prescriptionTable.refresh();
+        handleClearFields();
     }
 
     @FXML

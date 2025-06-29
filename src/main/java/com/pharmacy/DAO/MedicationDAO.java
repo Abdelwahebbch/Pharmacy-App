@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.pharmacy.Model.Medication;
-import com.pharmacy.Model.Prescription;
 import com.pharmacy.util.DataBaseConnection;
 
 import javafx.collections.ObservableList;
