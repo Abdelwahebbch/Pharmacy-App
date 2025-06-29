@@ -31,3 +31,6 @@ create table sales (
    sel_id    number primary key,
    sel_price number
 );
+
+CREATE SEQUENCE med_is_seq START with 1 increment by 1 NOCACHE NOCYCLE ; 
+CREATE SEQUENCE pres_is_seq START with 1 increment by 1 NOCACHE NOCYCLE ; 

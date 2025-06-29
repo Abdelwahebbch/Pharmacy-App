@@ -1,0 +1,1 @@
+SELECT med_name from medecins WHERE MED_ID ='MED003';

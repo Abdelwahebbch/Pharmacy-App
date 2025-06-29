@@ -68,7 +68,7 @@ public class DashboardController {
     @FXML
     void handleInventoryButton(ActionEvent event) throws IOException {
 
-        SceneSwitcher.setContent(MainScene, "/fxml/Inventory.fxml");
+        SceneSwitcher.setContent(MainScene, "/fxml/InventoryX.fxml");
     }
 
     

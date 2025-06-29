@@ -1,6 +1,5 @@
 package com.pharmacy.controller;
 
-import com.pharmacy.Model.Medication;
 import com.pharmacy.Model.Prescription;
 import com.pharmacy.util.DataBaseConnection;
 
@@ -31,6 +30,9 @@ public class PrescriptionController implements Initializable {
 
     @FXML
     private Button updateButton;
+
+    @FXML
+    private TextField patientNameField;
 
     @FXML
     private TextField doctorNameField;
@@ -88,6 +90,7 @@ public class PrescriptionController implements Initializable {
 
         // Remplir combo box statut
         statusComboBox.setItems(FXCollections.observableArrayList("Malade", "Others"));
+        issueDatePicker.setValue(LocalDate.now());
 
         // Exemple de requête pour remplir la table avec des prescriptions fictives
         String query = "SELECT * FROM prescriptions ";
@@ -118,7 +121,19 @@ public class PrescriptionController implements Initializable {
 
     @FXML
     void handleAddPrescription(ActionEvent event) {
-        // À implémenter
+        String name = patientNameField.getText();
+        String doctor = doctorNameField.getText();
+        Date issueDate = java.sql.Date.valueOf(issueDatePicker.getValue());
+        Date expiryDate = java.sql.Date.valueOf(expiryDatePicker.getValue());
+        String Status = statusComboBox.getValue();
+        String medications = medicationsArea.getText();
+        if (name.isEmpty() || doctor == null || issueDate == null || Status == null || medications == null
+                || expiryDate == null) {
+            // Show error message
+            return;
+        }
+
+        prescriptionList.add(new Prescription(medications, name, doctor, null, null, Status, medications));
     }
 
     @FXML

@@ -29,7 +29,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleDashboardButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #34495e;" text="Dashboard" textFill="WHITE">
+            <Button fx:id="dashboardButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleDashboardButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Dashboard" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>

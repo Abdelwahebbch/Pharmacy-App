@@ -37,7 +37,7 @@
                      </children>
                   </VBox>
 
-                  <!-- Search and Filter Section -->
+                 
                   <HBox alignment="CENTER_LEFT" spacing="10.0" AnchorPane.topAnchor="80.0">
                      <children>
                         <Label text="Search:" />
@@ -57,7 +57,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="medicationTable" editable="true" onMouseClicked="#handleMedicationSelection" VBox.vgrow="ALWAYS">
+                              <TableView fx:id="medicationTable" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleMedicationSelection" VBox.vgrow="ALWAYS">
                                  <columns>
                                     <TableColumn fx:id="name" prefWidth="150.0" text="Name" />
                                     <TableColumn fx:id="category" prefWidth="100.0" text="Category" />

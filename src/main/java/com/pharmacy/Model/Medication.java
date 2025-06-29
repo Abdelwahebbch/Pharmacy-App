@@ -3,13 +3,15 @@ package com.pharmacy.Model;
 import java.sql.Date;
 
 public class Medication {
+    private String id;
     private String name;
     private String category;
     private double price;
     private int quantity;
     private Date expiryDate;
     
-    public Medication(String name, String category, double price, int quantity, Date expiryDate) {
+    public Medication(String id , String name, String category, double price, int quantity, Date expiryDate) {
+        this.id = id;
         this.name = name;
         this.category = category;
         this.price = price;
@@ -18,6 +20,9 @@ public class Medication {
     }
     
     // Getters and setters
+    public String getId() {return id;}
+    public void setId(String id) {this.id = id;}
+
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     
