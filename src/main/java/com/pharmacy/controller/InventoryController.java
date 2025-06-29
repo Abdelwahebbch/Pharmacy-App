@@ -2,6 +2,8 @@ package com.pharmacy.controller;
 
 import com.pharmacy.DAO.MedicationDAO;
 import com.pharmacy.Model.Medication;
+import com.pharmacy.Validation.Validators;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
@@ -68,7 +70,7 @@ public class InventoryController implements Initializable {
                 "Antibiotics", "Pain Relief", "Vitamins", "Cardiac", "Respiratory", "Gastrointestinal", "Others"));
         medicationTable.setItems(medicationList);
     }
-
+    
     @FXML
     private void handleAddMedication() {
         try {
@@ -77,16 +79,18 @@ public class InventoryController implements Initializable {
             double price = Double.parseDouble(priceField.getText());
             int quantity = Integer.parseInt(quantityField.getText());
             Date expiryDate = java.sql.Date.valueOf(expiryDatePicker.getValue());
-
-            if (name.isEmpty() || category == null || expiryDate == null) {
-                // Show error message
+            
+            if (name.isEmpty() || category == null || expiryDate == null || price < 0 || quantity < 0
+            || expiryDate == null || !Validators.MedicationSearch(medicationList, name)) {
+                System.err.println("Already exist ");
+                // TODO : nzid alert
                 return;
             }
-
-            Medication newMedication = new Medication("X", name, category, price, quantity, expiryDate);
-            medicationList.add(newMedication);
+            Medication newMedication = new Medication("None", name, category, price, quantity, expiryDate);
             newMedicationsList.add(newMedication);
-
+            MedicationDAO.addMedications(newMedicationsList);
+            MedicationDAO.LoadAllMedecins(medicationList);
+            medicationTable.setItems(medicationList);
             // Clear fields
             clearFields();
 

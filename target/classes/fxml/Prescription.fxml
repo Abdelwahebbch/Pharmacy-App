@@ -59,9 +59,9 @@
                                     </Label>
                                     <TableView fx:id="prescriptionTable" onMouseClicked="#handlePrescriptionSelection" VBox.vgrow="ALWAYS">
                                        <columns>
-                                          <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID" />
-                                          <TableColumn fx:id="patientNameColumn" prefWidth="150.0" text="Patient Name" />
-                                          <TableColumn fx:id="doctorNameColumn" prefWidth="150.0" text="Doctor" />
+                                          <TableColumn fx:id="idColumn" prefWidth="110.0" text="Phone" />
+                                          <TableColumn fx:id="patientNameColumn" prefWidth="129.0" text="Patient Name" />
+                                          <TableColumn fx:id="doctorNameColumn" prefWidth="111.0" text="Doctor" />
                                           <TableColumn fx:id="issueDateColumn" prefWidth="120.0" text="Issue Date" />
                                           <TableColumn fx:id="expiryDateColumn" prefWidth="120.0" text="Expiry Date" />
                                           <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Status" />
@@ -90,35 +90,33 @@
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                           <RowConstraints minHeight="10.0" prefHeight="120.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
                                           <Label text="Patient:" />
-                                          <HBox spacing="10.0" GridPane.columnIndex="1">
-                                             <children>
-                                                <ComboBox fx:id="patientComboBox" prefWidth="150.0" />
-                                                <Button mnemonicParsing="false" onAction="#handleNewPatient" text="New" />
-                                             </children>
-                                          </HBox>
+                                          <TextField fx:id="patientNameField" GridPane.columnIndex="1" />
                                           
-                                          <Label text="Doctor:" GridPane.rowIndex="1" />
-                                          <TextField fx:id="doctorNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Doctor:" GridPane.rowIndex="2" />
+                                          <TextField fx:id="doctorNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                           
-                                          <Label text="Issue Date:" GridPane.rowIndex="2" />
-                                          <DatePicker fx:id="issueDatePicker" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label text="Issue Date:" GridPane.rowIndex="3" />
+                                          <DatePicker fx:id="issueDatePicker" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                           
-                                          <Label text="Expiry Date:" GridPane.rowIndex="3" />
-                                          <DatePicker fx:id="expiryDatePicker" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Label text="Expiry Date:" GridPane.rowIndex="4" />
+                                          <DatePicker fx:id="expiryDatePicker" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                           
-                                          <Label text="Status:" GridPane.rowIndex="4" />
-                                          <ComboBox fx:id="statusComboBox" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                          <Label text="Status:" GridPane.rowIndex="5" />
+                                          <ComboBox fx:id="statusComboBox" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                           
-                                          <Label text="Medications:" GridPane.rowIndex="5" GridPane.valignment="TOP">
+                                          <Label text="Medications:" GridPane.rowIndex="6" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets top="5.0" />
                                              </GridPane.margin>
                                           </Label>
-                                          <TextArea fx:id="medicationsArea" prefHeight="120.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                          <TextArea fx:id="medicationsArea" prefHeight="120.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                          <TextField fx:id="PhoneField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Phone number :" GridPane.rowIndex="1" />
                                        </children>
                                     </GridPane>
                                     
