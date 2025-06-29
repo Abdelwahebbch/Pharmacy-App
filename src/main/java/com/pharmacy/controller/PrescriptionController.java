@@ -1,8 +1,6 @@
 package com.pharmacy.controller;
 
-import com.pharmacy.DAO.MedicationDAO;
 import com.pharmacy.DAO.PrescriptionDAO;
-import com.pharmacy.Model.Medication;
 import com.pharmacy.Model.Prescription;
 import com.pharmacy.Validation.Validators;
 import javafx.collections.FXCollections;
