@@ -61,7 +61,7 @@ public class DashboardController {
     private LineChart<?, ?> trendsLineChart;
 
     @FXML
-    void handleDashboardButton(ActionEvent event) {
+    void handleDashboardButton() {
         SceneSwitcher.setContent(MainScene, "/fxml/Dashboard.fxml");
     }
 
