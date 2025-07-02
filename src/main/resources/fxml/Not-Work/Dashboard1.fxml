@@ -12,27 +12,32 @@
 
     <!-- Top Bar -->
     <top>
-        <HBox style="-fx-background-color: #2a9d8f;" spacing="10.0" alignment="CENTER_LEFT" prefHeight="60.0">
-            <Label text="Pharmacy Management System" style="-fx-font-size: 20px; -fx-text-fill: white;" padding="20.0"/>
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="10.0" style="-fx-background-color: #2a9d8f;">
+            <Label style="-fx-font-size: 20px; -fx-text-fill: white;" text="Pharmacy Management System" />
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
         </HBox>
     </top>
 
     <!-- Side Menu -->
     <left>
-        <VBox spacing="10.0" prefWidth="200.0" style="-fx-background-color: #264653;" padding="20.0">
-            <Button text="Dashboard" prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" />
-            <Button text="Medicines" prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" />
-            <Button text="Sales" prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" />
-            <Button text="Customers" prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" />
-            <Button text="Reports" prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" />
+        <VBox prefWidth="200.0" spacing="10.0" style="-fx-background-color: #264653;">
+            <Button prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" text="Dashboard" />
+            <Button prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" text="Medicines" />
+            <Button prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" text="Sales" />
+            <Button prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" text="Customers" />
+            <Button prefWidth="160" style="-fx-background-color: #2a9d8f; -fx-text-fill: white;" text="Reports" />
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
         </VBox>
     </left>
 
     <!-- Main Content Area -->
     <center>
         <AnchorPane fx:id="contentArea" style="-fx-background-color: #f4f4f4;">
-            <Label text="Welcome to the Dashboard!" layoutX="50.0" layoutY="50.0"
-                   style="-fx-font-size: 18px;" />
+            <Label layoutX="50.0" layoutY="50.0" style="-fx-font-size: 18px;" text="Welcome to the Dashboard!" />
         </AnchorPane>
     </center>
 

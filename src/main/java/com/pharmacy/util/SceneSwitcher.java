@@ -44,7 +44,7 @@ public class SceneSwitcher {
             AnchorPane.setRightAnchor(node, 0.0);
             targetPane.getChildren().setAll(node);
         } catch (IOException e) {
-            System.err.println("Erreur !!");
+            System.err.println("Erreur (Scene Switcher)");
             System.err.println(e.getMessage());
             // e.printStackTrace();
         }

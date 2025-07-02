@@ -115,7 +115,6 @@
                                                             <Label text="Address:" GridPane.rowIndex="3" />
                                                             <TextField fx:id="addressField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                             
-                  />
                                                             
                                                             <Label text="Registration Date:" GridPane.rowIndex="4" />
                                                             <DatePicker fx:id="registrationDatePicker" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />

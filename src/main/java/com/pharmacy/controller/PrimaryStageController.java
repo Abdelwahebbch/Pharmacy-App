@@ -1,15 +1,18 @@
 package com.pharmacy.controller;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import com.pharmacy.util.SceneSwitcher;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
-public class PrimaryStageController {
+public class PrimaryStageController implements Initializable {
 
     @FXML
     private Button LogoutButton;
@@ -28,6 +31,14 @@ public class PrimaryStageController {
 
     @FXML
     private Button settingsButton;
+
+    @FXML
+    private Button salesButton;
+
+    @FXML
+    void handleSalesButton(ActionEvent event) {
+        SceneSwitcher.setContent(MainScene, "/fxml/SalesScene.fxml");
+    }
 
     @FXML
     void handleDashboardButton() {
@@ -54,6 +65,11 @@ public class PrimaryStageController {
     @FXML
     void handleLogoutButton(ActionEvent event) {
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        SceneSwitcher.setContent(MainScene, "/fxml/SalesScene.fxml");
     }
 
 }
