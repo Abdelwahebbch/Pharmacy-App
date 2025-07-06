@@ -100,7 +100,7 @@ public class DashBoardDAO extends DashboardController {
             while (rs.next()) {
                 series.getData().add(new XYChart.Data<>(T[rs.getInt("sale_month") - 1], rs.getDouble("total_sales")));
                 if (rs.getInt("sale_month") == month) {
-                    x.set(rs.getDouble("total_sales"));
+                    x.set(rs.getDouble("total_sales")); 
 
                 }
 

@@ -46,7 +46,7 @@ public class SceneSwitcher {
         } catch (IOException e) {
             System.err.println("Erreur (Scene Switcher)");
             System.err.println(e.getMessage());
-            // e.printStackTrace();
+            e.printStackTrace();
         }
     }
 

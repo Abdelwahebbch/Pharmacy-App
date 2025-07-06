@@ -3,8 +3,8 @@ package com.pharmacy.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import com.google.common.util.concurrent.AtomicDouble;
+
 import com.pharmacy.DAO.DashBoardDAO;
 import com.pharmacy.Model.Medication;
 import com.pharmacy.Model.Sale;

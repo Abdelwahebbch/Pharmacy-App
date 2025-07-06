@@ -185,10 +185,14 @@
                                              </columnConstraints>
                                              <children>
                                                 <Label text="Subtotal:" />
-                                                <Label fx:id="subtotalLabel" text="0.00" GridPane.columnIndex="1" />
 
-                                                <Label text="Tax (10%):" GridPane.rowIndex="1" />
-                                                <Label fx:id="taxLabel" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                      <Label text="Tax (10%):" GridPane.rowIndex="1" />
+                                                <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <Label fx:id="taxLabel" text="0.00" />
+                                                      <Button onAction="#handleApplyTax" text="Apply" />
+                                                   </children>
+                                                </HBox>
 
                                                 <Label text="Discount:" GridPane.rowIndex="2" />
                                                 <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -208,6 +212,7 @@
 
                                                 <Label text="Payment Method:" GridPane.rowIndex="4" />
                                                 <ComboBox fx:id="paymentMethodComboBox" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <Label fx:id="subtotalLabel" text="0.00" GridPane.columnIndex="1" />
                                              </children>
                                              <rowConstraints>
                                                 <RowConstraints />

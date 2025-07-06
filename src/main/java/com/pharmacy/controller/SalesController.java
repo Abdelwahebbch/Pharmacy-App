@@ -7,7 +7,6 @@ import com.pharmacy.DAO.MedicationDAO;
 import com.pharmacy.Model.Medication;
 import com.pharmacy.Model.Sale;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -80,32 +79,70 @@ public class SalesController implements Initializable {
 
     @FXML
     private Label totalLabel;
-    
+
     private ObservableList<Medication> MedicationList = FXCollections.observableArrayList();
     private ObservableList<Sale> productInCart = FXCollections.observableArrayList();
 
     @FXML
     void handleAddToCart(ActionEvent event) {
         Medication selectedProduct = productsTable.getSelectionModel().getSelectedItem();
+        int q = Integer.parseInt(quantityField.getText());
 
-        if (selectedProduct != null) {
-            int q = Integer.parseInt(quantityField.getText());
-            productInCart.add(new Sale(selectedProduct.getId(), selectedProduct.getName(),
-                    selectedProduct.getCategory(), q, selectedProduct.getPrice(), selectedProduct.getPrice() * q,
+        if (selectedProduct == null || quantityField.getText().isEmpty()) {
+            return;
+        }
+
+        boolean found = false;
+
+        for (Sale saleItem : productInCart) {
+            if (saleItem.getId().equals(selectedProduct.getId())) {
+                // Update existing Sale item
+                int newQuantity = saleItem.getQuantity() + q;
+                saleItem.setQuantity(newQuantity);
+                saleItem.setTotal(saleItem.getUnitPrice() * newQuantity);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            productInCart.add(new Sale(
+                    selectedProduct.getId(),
+                    selectedProduct.getName(),
+                    selectedProduct.getCategory(),
+                    q,
+                    selectedProduct.getPrice(),
+                    selectedProduct.getPrice() * q,
                     selectedProduct.getExpiryDate()));
         }
 
-        cartTable.setItems(productInCart);
+        cartTable.setItems(productInCart); // Needed to show updated quantity/total
+        cartTable.refresh();
+        updateSubtotal(); // Instant total update
+    }
+
+    @FXML
+    void handleApplyTax(ActionEvent event) {
+
     }
 
     @FXML
     void handleApplyDiscount(ActionEvent event) {
+        double T = Double.parseDouble(subtotalLabel.getText().replace(",", "."));
+        double d = Double.parseDouble(discountField.getText());
+        if (d <= 100) {
+            totalLabel.setText(String.format("%.2f", T - (d * T / 100)));
+        } else {
+            System.err.println("> 100 ! ");
+        }
 
     }
 
     @FXML
     void handleClearCart(ActionEvent event) {
-        cartTable.setItems(null);
+        productInCart.clear();
+        cartTable.setItems(productInCart);
+        updateSubtotal();
     }
 
     @FXML
@@ -121,7 +158,10 @@ public class SalesController implements Initializable {
     @FXML
     void handleRemoveItem(ActionEvent event) {
         Sale selectedProduct = cartTable.getSelectionModel().getSelectedItem();
-        productInCart.remove(selectedProduct);
+        if (selectedProduct != null) {
+            productInCart.remove(selectedProduct);
+            updateSubtotal();
+        }
         cartTable.refresh();
     }
 
@@ -152,7 +192,7 @@ public class SalesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+
         productCodeColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         productCategoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
@@ -165,7 +205,21 @@ public class SalesController implements Initializable {
         cartTotalColumn.setCellValueFactory(new PropertyValueFactory<>("total"));
         MedicationDAO.LoadAllMedecins(MedicationList);
         productsTable.setItems(MedicationList);
+        updateSubtotal();
+    }
 
+    private void updateSubtotal() {
+        double subtotal = 0;
+        for (Sale sale : productInCart) {
+            subtotal += sale.getTotal();
+        }
+        subtotalLabel.setText(String.format("%.2f", subtotal));
+
+        if (!discountField.getText().isEmpty()) {
+            handleApplyDiscount(null);
+        } else {
+            totalLabel.setText(String.format("%.2f", subtotal));
+        }
     }
 
 }

@@ -4,25 +4,25 @@ eKarya/
 │   ├── main/
 │   │   ├── java/
 │   │   │   ├── com/
-│   │   │   │   └── ekarya/
-│   │   │   │       ├── app/
-│   │   │   │       │   └── Main.java
-│   │   │   │       ├── controller/
-│   │   │   │       │   ├── LoginController.java
-│   │   │   │       │   ├── PropertyListController.java
-│   │   │   │       │   └── ...
-│   │   │   │       ├── model/
-│   │   │   │       │   ├── User.java
-│   │   │   │       │   ├── Property.java
-│   │   │   │       │   └── ...
-│   │   │   │       ├── service/
-│   │   │   │       │   ├── UserService.java
-│   │   │   │       │   ├── PropertyService.java
-│   │   │   │       │   └── ...
-│   │   │   │       └── util/
-│   │   │   │           ├── DatabaseConnection.java
-│   │   │   │           └── ...
-│   │   │   └── module-info.java
+│   │   │        └── ekarya/
+│   │   │           ├── app/
+│   │   │           │   └── Main.java
+│   │   │           ├── controller/
+│   │   │           │   ├── LoginController.java
+│   │   │           │   ├── PropertyListController.java
+│   │   │           │   └── ...
+│   │   │           ├── model/
+│   │   │           │   ├── User.java
+│   │   │           │   ├── Property.java
+│   │   │           │   └── ...
+│   │   │           ├── DAO/
+│   │   │           │   ├── UserService.java
+│   │   │           │   ├── PropertyService.java
+│   │   │           │   └── ...
+│   │   │           └── util/
+│   │   │               ├── DatabaseConnection.java
+│   │   │               └── ...
+│   │   │   
 │   │   └── resources/
 │   │       ├── fxml/
 │   │       │   ├── login.fxml
@@ -41,8 +41,8 @@ eKarya/
 │                   │   └── ...
 │                   └── util/
 │                       └── DatabaseConnectionTest.java
-├── lib/
-│   └── (external libraries, if any)
+├
+│  
 ├── database/
 │   ├── schema.sql
 │   ├── initial_data.sql
@@ -50,9 +50,9 @@ eKarya/
 │       ├── create_user.sql
 │       ├── find_properties.sql
 │       └── ...
-├── docs/
-│   ├── api_documentation.md
-│   └── user_manual.md
+├
+│   
+│   
 ├── .gitignore
 ├── README.md
 └── pom.xml
