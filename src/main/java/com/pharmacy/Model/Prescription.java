@@ -43,4 +43,9 @@ public class Prescription {
     public String getMedications() { return medications; }
     public void setMedications(String medications) {this.medications = medications;}
 
+    @Override
+    public String toString() {
+        return patientName + " (" + issueDate + ")";
+    }
+
 }

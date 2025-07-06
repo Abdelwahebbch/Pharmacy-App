@@ -4,7 +4,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.pharmacy.DAO.MedicationDAO;
+import com.pharmacy.DAO.PrescriptionDAO;
 import com.pharmacy.Model.Medication;
+import com.pharmacy.Model.Prescription;
 import com.pharmacy.Model.Sale;
 
 import javafx.collections.FXCollections;
@@ -27,13 +29,13 @@ public class SalesController implements Initializable {
     private TableColumn<?, ?> cartQuantityColumn;
 
     @FXML
-    private TableView<Sale> cartTable;
-
-    @FXML
     private TableColumn<?, ?> cartTotalColumn;
 
     @FXML
     private TableColumn<?, ?> cartUnitPriceColumn;
+
+    @FXML
+    private ComboBox<Prescription> clientPrescriptionsComboBox;
 
     @FXML
     private Label customerNameLabel;
@@ -63,13 +65,16 @@ public class SalesController implements Initializable {
     private TableColumn<?, ?> productStockColumn;
 
     @FXML
-    private TableView<Medication> productsTable;
-
-    @FXML
     private TextField quantityField;
 
     @FXML
+    private TextField searchField;
+
+    @FXML
     private TextField searchProductField;
+
+    @FXML
+    private ComboBox<String> searchResult;
 
     @FXML
     private Label subtotalLabel;
@@ -80,8 +85,48 @@ public class SalesController implements Initializable {
     @FXML
     private Label totalLabel;
 
+    @FXML
+    private TableView<Medication> productsTable;
+    @FXML
+    private TableView<Sale> cartTable;
+
     private ObservableList<Medication> MedicationList = FXCollections.observableArrayList();
+    private ObservableList<Prescription> prescriptionList = FXCollections.observableArrayList();
+   // private ObservableList<Prescription> clientPrescriptionList = FXCollections.observableArrayList();
     private ObservableList<Sale> productInCart = FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        productCodeColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productCategoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        productStockColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+        cartProductColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        cartQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        cartUnitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        cartTotalColumn.setCellValueFactory(new PropertyValueFactory<>("total"));
+        MedicationDAO.LoadAllMedecins(MedicationList);
+        productsTable.setItems(MedicationList);
+        PrescriptionDAO.loadPrescription(prescriptionList);
+        updateSubtotal();
+    }
+
+    private void updateSubtotal() {
+        double subtotal = 0;
+        for (Sale sale : productInCart) {
+            subtotal += sale.getTotal();
+        }
+        subtotalLabel.setText(String.format("%.2f", subtotal));
+
+        if (!discountField.getText().isEmpty()) {
+            handleApplyDiscount(null);
+        } else {
+            totalLabel.setText(String.format("%.2f", subtotal));
+        }
+    }
 
     @FXML
     void handleAddToCart(ActionEvent event) {
@@ -122,11 +167,6 @@ public class SalesController implements Initializable {
     }
 
     @FXML
-    void handleApplyTax(ActionEvent event) {
-
-    }
-
-    @FXML
     void handleApplyDiscount(ActionEvent event) {
         double T = Double.parseDouble(subtotalLabel.getText().replace(",", "."));
         double d = Double.parseDouble(discountField.getText());
@@ -135,6 +175,11 @@ public class SalesController implements Initializable {
         } else {
             System.err.println("> 100 ! ");
         }
+
+    }
+
+    @FXML
+    void handleApplyTax(ActionEvent event) {
 
     }
 
@@ -166,6 +211,25 @@ public class SalesController implements Initializable {
     }
 
     @FXML
+    void handleSearchCustomer(ActionEvent event) {
+        String searchTerm = searchField.getText().toLowerCase();
+
+        if (searchTerm.isEmpty()) {
+            searchResult.setItems(null);
+            return;
+        }
+
+        ObservableList<String> filteredList = FXCollections.observableArrayList();
+        for (Prescription p : prescriptionList) {
+            if (p.getId().toLowerCase().contains(searchTerm) ||
+                    p.getPatientName().toLowerCase().contains(searchTerm)) {
+                filteredList.add(p.getPatientName() + " / " + p.getId());
+            }
+        }
+        searchResult.setItems(filteredList);
+    }
+
+    @FXML
     void handleSearchProduct(ActionEvent event) {
         String searchTerm = searchProductField.getText().toLowerCase();
 
@@ -190,36 +254,32 @@ public class SalesController implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-        productCodeColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        productCategoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
-        productPriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
-        productStockColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-
-        cartProductColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        cartQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        cartUnitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-        cartTotalColumn.setCellValueFactory(new PropertyValueFactory<>("total"));
-        MedicationDAO.LoadAllMedecins(MedicationList);
-        productsTable.setItems(MedicationList);
-        updateSubtotal();
-    }
-
-    private void updateSubtotal() {
-        double subtotal = 0;
-        for (Sale sale : productInCart) {
-            subtotal += sale.getTotal();
+    @FXML
+    void handleResultSelection() {
+        String selectedClient = searchResult.getSelectionModel().getSelectedItem();
+        if (selectedClient == null || selectedClient.trim().isEmpty()) {
+            System.out.println("Selected client is null or empty.");
+            return;  
         }
-        subtotalLabel.setText(String.format("%.2f", subtotal));
 
-        if (!discountField.getText().isEmpty()) {
-            handleApplyDiscount(null);
-        } else {
-            totalLabel.setText(String.format("%.2f", subtotal));
+        String[] parts = selectedClient.split("/");
+        if (parts.length != 2) {
+            System.out.println("Invalid format for selected client: " + selectedClient);
+            return; 
         }
+
+        ObservableList<Prescription> secFilteredList = FXCollections.observableArrayList();
+        if (selectedClient != null && parts != null) {
+            customerNameLabel.setText(parts[0]);
+            customerPhoneLabel.setText(parts[1]);
+            for (Prescription p : prescriptionList) {
+                if (p.getId().toLowerCase().contains(parts[1].trim()) ||
+                        p.getPatientName().toLowerCase().contains(parts[0].trim())) {
+                    secFilteredList.add(p);
+                }
+            }
+        }
+        clientPrescriptionsComboBox.setItems(secFilteredList);
     }
 
 }

@@ -126,7 +126,9 @@
                                           </Label>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <TextField promptText="Search by name or phone" />
+                                                <TextField fx:id="searchField" promptText="Search by name or phone" />
+                                                <ComboBox fx:id="searchResult" onAction="#handleResultSelection" prefWidth="150.0" />
+                                                <Button onAction="#handleSearchCustomer" text="Search" />
                                                 <Button onAction="#handleNewCustomer" text="New" />
                                              </children>
                                           </HBox>
@@ -154,14 +156,14 @@
                                     <!-- Prescription -->
                                     <VBox spacing="10.0">
                                        <children>
-                                          <Label text="Prescription (Optional)">
+                                          <Label text="Prescriptios (Optional)">
                                              <font>
                                                 <Font name="System Bold" size="12.0" />
                                              </font>
                                           </Label>
                                           <HBox alignment="CENTER_LEFT" spacing="10.0">
                                              <children>
-                                                <TextField promptText="select facture" />
+                                                <ComboBox fx:id="clientPrescriptionsComboBox" prefWidth="150.0" promptText="Select Prescripton" />
                                                 <Button onAction="#handleViewPrescription" text="View" />
                                              </children>
                                           </HBox>
