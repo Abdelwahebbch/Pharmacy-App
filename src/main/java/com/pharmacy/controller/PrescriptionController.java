@@ -132,7 +132,7 @@ public class PrescriptionController implements Initializable {
     }
 
     @FXML
-    void handlePrescriptionSelection(MouseEvent event) {
+    void handlePrescriptionSelection() {
         Prescription selectedPrescription = prescriptionTable.getSelectionModel().getSelectedItem();
         if (selectedPrescription != null) {
             patientNameField.setText(selectedPrescription.getPatientName());
