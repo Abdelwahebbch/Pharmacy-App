@@ -51,6 +51,14 @@
                   <Insets left="20.0" />
                </padding>
             </Button>
+            <Button fx:id="patientsButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handlePatientsButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Patients" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </Button>
             <Button fx:id="settingsButton" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleSettingsButton" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" text="Settings" textFill="WHITE">
                <font>
                   <Font size="14.0" />

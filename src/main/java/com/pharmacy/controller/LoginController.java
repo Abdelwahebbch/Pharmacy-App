@@ -40,6 +40,7 @@ public class LoginController {
 
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/PrimaryStage.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setMaximized(true);
           //  SceneSwitcher.setContent(DashboardController.MainScene, "/fxml/Dashboard.fxml");
             stage.setScene(new Scene(root));
             stage.show();

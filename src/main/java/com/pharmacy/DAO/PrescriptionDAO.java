@@ -20,15 +20,15 @@ public class PrescriptionDAO {
                 ResultSet res = stm.executeQuery()) {
 
             while (res.next()) {
-                Prescription prescription = new Prescription(
+                prescriptionList.add( new Prescription(
                         res.getString("pres_id"),
                         res.getString("patient_name"),
                         res.getString("doctor_name"),
                         res.getDate("issue_date"),
                         res.getDate("med_exp"),
                         res.getString("Status"),
-                        res.getString("medications"));
-                prescriptionList.add(prescription);
+                        res.getString("medications"))
+               );
             }
 
         } catch (ClassNotFoundException | SQLException e) {

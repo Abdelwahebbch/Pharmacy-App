@@ -149,7 +149,7 @@ public class PrescriptionController implements Initializable {
     @FXML
     void handleSearchPrescription(ActionEvent event) {
         String searchTerm = searchField.getText().toLowerCase();
-        int x=0;
+    
 
         if (searchTerm.isEmpty()) {
             prescriptionTable.setItems(prescriptionList);

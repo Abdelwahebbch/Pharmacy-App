@@ -25,7 +25,8 @@ public class PrimaryStageController implements Initializable {
 
     @FXML
     private Button inventoryButton;
-
+    @FXML
+    private Button patientsButton;
     @FXML
     private Button prescriptionsButton;
 
@@ -43,6 +44,11 @@ public class PrimaryStageController implements Initializable {
     @FXML
     void handleDashboardButton() {
         SceneSwitcher.setContent(MainScene, "/fxml/Dashboard.fxml");
+    }
+
+    @FXML
+    void handlePatientsButton(ActionEvent event) {
+        SceneSwitcher.setContent(MainScene, "/fxml/PatientsScene.fxml");
     }
 
     @FXML

@@ -1,25 +1,35 @@
 package com.pharmacy.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.pharmacy.DAO.MedicationDAO;
+import com.pharmacy.DAO.PatientsDAO;
 import com.pharmacy.DAO.PrescriptionDAO;
 import com.pharmacy.Model.Medication;
+import com.pharmacy.Model.Patient;
 import com.pharmacy.Model.Prescription;
 import com.pharmacy.Model.Sale;
+import com.pharmacy.util.SceneSwitcher;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class SalesController implements Initializable {
     @FXML
@@ -74,7 +84,7 @@ public class SalesController implements Initializable {
     private TextField searchProductField;
 
     @FXML
-    private ComboBox<String> searchResult;
+    private ComboBox<Patient> searchResult;
 
     @FXML
     private Label subtotalLabel;
@@ -92,7 +102,9 @@ public class SalesController implements Initializable {
 
     private ObservableList<Medication> MedicationList = FXCollections.observableArrayList();
     private ObservableList<Prescription> prescriptionList = FXCollections.observableArrayList();
-   // private ObservableList<Prescription> clientPrescriptionList = FXCollections.observableArrayList();
+    private ObservableList<Patient> patientList = FXCollections.observableArrayList();
+    // private ObservableList<Prescription> clientPrescriptionList =
+    // FXCollections.observableArrayList();
     private ObservableList<Sale> productInCart = FXCollections.observableArrayList();
 
     @Override
@@ -111,6 +123,7 @@ public class SalesController implements Initializable {
         MedicationDAO.LoadAllMedecins(MedicationList);
         productsTable.setItems(MedicationList);
         PrescriptionDAO.loadPrescription(prescriptionList);
+        PatientsDAO.LoadAllPatients(patientList);
         updateSubtotal();
     }
 
@@ -192,7 +205,21 @@ public class SalesController implements Initializable {
 
     @FXML
     void handleNewCustomer(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewPatientScene.fxml"));
+            Parent root = loader.load();
 
+            Stage newWindow = new Stage();
+            newWindow.setTitle("Nouveau Patient");
+            newWindow.setScene(new Scene(root));
+
+            newWindow.initModality(Modality.WINDOW_MODAL);
+            newWindow.initOwner(((Node) event.getSource()).getScene().getWindow());
+
+            newWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -213,17 +240,19 @@ public class SalesController implements Initializable {
     @FXML
     void handleSearchCustomer(ActionEvent event) {
         String searchTerm = searchField.getText().toLowerCase();
+       
 
         if (searchTerm.isEmpty()) {
             searchResult.setItems(null);
             return;
         }
 
-        ObservableList<String> filteredList = FXCollections.observableArrayList();
-        for (Prescription p : prescriptionList) {
-            if (p.getId().toLowerCase().contains(searchTerm) ||
-                    p.getPatientName().toLowerCase().contains(searchTerm)) {
-                filteredList.add(p.getPatientName() + " / " + p.getId());
+        ObservableList<Patient> filteredList = FXCollections.observableArrayList();
+        filteredList.clear();
+        for (Patient p : patientList) {
+            if (p.getPhone().toLowerCase().contains(searchTerm) ||
+                    p.getName().toLowerCase().contains(searchTerm) && !filteredList.contains(p)) {
+                filteredList.add(p);
             }
         }
         searchResult.setItems(filteredList);
@@ -256,25 +285,18 @@ public class SalesController implements Initializable {
 
     @FXML
     void handleResultSelection() {
-        String selectedClient = searchResult.getSelectionModel().getSelectedItem();
-        if (selectedClient == null || selectedClient.trim().isEmpty()) {
+        Patient selectedClient = searchResult.getSelectionModel().getSelectedItem();
+        if (selectedClient == null) {
             System.out.println("Selected client is null or empty.");
-            return;  
-        }
-
-        String[] parts = selectedClient.split("/");
-        if (parts.length != 2) {
-            System.out.println("Invalid format for selected client: " + selectedClient);
-            return; 
+            return;
         }
 
         ObservableList<Prescription> secFilteredList = FXCollections.observableArrayList();
-        if (selectedClient != null && parts != null) {
-            customerNameLabel.setText(parts[0]);
-            customerPhoneLabel.setText(parts[1]);
+        if (selectedClient != null) {
+            customerNameLabel.setText(selectedClient.getName());
+            customerPhoneLabel.setText(selectedClient.getPhone());
             for (Prescription p : prescriptionList) {
-                if (p.getId().toLowerCase().contains(parts[1].trim()) ||
-                        p.getPatientName().toLowerCase().contains(parts[0].trim())) {
+                if (p.getId().contains(selectedClient.getId())) {
                     secFilteredList.add(p);
                 }
             }

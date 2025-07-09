@@ -11,11 +11,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/LoginScene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/PrimaryStage.fxml"));
         primaryStage.setScene(new Scene(root));
-        primaryStage.setTitle("Login Now !");
+        primaryStage.setTitle("Pharmacy Management System");
        // primaryStage.setResizable(false);
-       // primaryStage.setMaximized(true);
+    primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
