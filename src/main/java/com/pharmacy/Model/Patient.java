@@ -4,28 +4,23 @@ import java.sql.Date;
 
 
 public class Patient {
-    private String id;
+
     private String name;
     private String phone;
     private Date birthday;
     private String note;
 
 
-    public Patient(String id, String name, String phone, Date birthday, String note) {
-        this.id = id;
+    public Patient(String phone, String name, Date birthday, String note) {
+     
         this.name = name;
         this.phone = phone;
         this.birthday = birthday;
         this.note = note;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+ 
+    
 
     public String getName() {
         return name;

@@ -65,7 +65,7 @@ public class InventoryController implements Initializable {
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
         quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         exp.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
-        MedicationDAO.LoadAllMedecins(medicationList);
+        MedicationDAO.LoadAllmedications(medicationList);
         categoryComboBox.setItems(FXCollections.observableArrayList(
                 "Antibiotics", "Pain Relief", "Vitamins", "Cardiac", "Respiratory", "Gastrointestinal", "Others"));
         medicationTable.setItems(medicationList);
@@ -89,7 +89,7 @@ public class InventoryController implements Initializable {
             Medication newMedication = new Medication("None", name, category, price, quantity, expiryDate);
             newMedicationsList.add(newMedication);
             MedicationDAO.addMedications(newMedicationsList);
-            MedicationDAO.LoadAllMedecins(medicationList);
+            MedicationDAO.LoadAllmedications(medicationList);
             medicationTable.setItems(medicationList);
             // Clear fields
             clearFields();

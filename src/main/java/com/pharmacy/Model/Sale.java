@@ -28,6 +28,15 @@ public class Sale {
         this.date = date;
     }
 
+    public Sale(String name, String category, int quantity, double unitPrice, double total, Date date) {
+        this.name = name;
+        this.category = category;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+        this.total = total;
+        this.date = date;
+    }
+
     public Sale(String id, String name, String category, int quantity, double unitPrice, double total, Date date) {
         this.id = id;
         this.name = name;

@@ -1,6 +1,8 @@
 package com.pharmacy.controller;
 
+import com.pharmacy.DAO.PatientsDAO;
 import com.pharmacy.DAO.PrescriptionDAO;
+import com.pharmacy.Model.Patient;
 import com.pharmacy.Model.Prescription;
 import com.pharmacy.Validation.Validators;
 import javafx.collections.FXCollections;
@@ -9,12 +11,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-
 import java.net.URL;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PrescriptionController implements Initializable {
@@ -79,11 +81,12 @@ public class PrescriptionController implements Initializable {
     private ObservableList<Prescription> newPrescriptionList = FXCollections.observableArrayList();
     private ObservableList<Prescription> updatedPrescriptionList = FXCollections.observableArrayList();
     private ObservableList<Prescription> deletedPrescriptionList = FXCollections.observableArrayList();
+    private ObservableList<Patient> patientsList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Configurer les colonnes
-        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("patientPhone"));
         patientNameColumn.setCellValueFactory(new PropertyValueFactory<>("patientName"));
         doctorNameColumn.setCellValueFactory(new PropertyValueFactory<>("doctorName"));
         issueDateColumn.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
@@ -96,7 +99,7 @@ public class PrescriptionController implements Initializable {
 
         PrescriptionDAO.loadPrescription(prescriptionList);
         prescriptionTable.setItems(prescriptionList);
-
+        PatientsDAO.LoadAllPatients(patientsList);
     }
 
     @FXML
@@ -109,8 +112,27 @@ public class PrescriptionController implements Initializable {
         String Status = statusComboBox.getValue();
         String medications = medicationsArea.getText();
         if (name.isEmpty() || doctor == null || issueDate == null || Status == null || medications == null
-                || expiryDate == null || !Validators.prespectionSearch(prescriptionList, phone)) {
-            System.out.println("Already exist");
+                || expiryDate == null || !Validators.patientPrescriptionValid(patientsList, phone)) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setContentText("There is no patient with this phone you want to create one ?");
+            ButtonType yesButton = new ButtonType("Yes");
+            ButtonType noButton = new ButtonType("No");
+
+            alert.getButtonTypes().setAll(yesButton, noButton);
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.isPresent() && result.get() == yesButton) {
+                Alert alert2 = new Alert(AlertType.INFORMATION);
+                //TODO : create a new patient (patirntDAO) createPatient
+                alert2.setContentText("ok !");
+                alert2.setHeaderText(null);
+                alert2.showAndWait();
+            } else {
+                Alert alert3 = new Alert(AlertType.INFORMATION);
+                alert3.setContentText("User clicked No or closed the dialog");
+                alert3.setHeaderText(null);
+                alert3.showAndWait();
+            }
             return;
         }
 
@@ -141,7 +163,7 @@ public class PrescriptionController implements Initializable {
             expiryDatePicker.setValue(selectedPrescription.getExpiryDate().toLocalDate());
             statusComboBox.setValue(selectedPrescription.getStatus());
             medicationsArea.setText(selectedPrescription.getMedications());
-            PhoneField.setText(selectedPrescription.getId());
+            PhoneField.setText(selectedPrescription.getPatientPhone());
             ;
         }
     }
@@ -149,7 +171,6 @@ public class PrescriptionController implements Initializable {
     @FXML
     void handleSearchPrescription(ActionEvent event) {
         String searchTerm = searchField.getText().toLowerCase();
-    
 
         if (searchTerm.isEmpty()) {
             prescriptionTable.setItems(prescriptionList);
@@ -186,14 +207,14 @@ public class PrescriptionController implements Initializable {
 
             if (patient.isEmpty() || doctor.isEmpty() || phone.isEmpty() || status.isEmpty() || medications.isEmpty()
                     || expiry_date == null || issue_date == null
-                    || Validators.prespectionSearch(prescriptionList, phone)) {
+                    || !Validators.patientPrescriptionValid(patientsList, phone)) {
                 // Show error message
                 return;
             }
 
             selectedPrescription.setPatientName(patient);
             selectedPrescription.setDoctorName(doctor);
-            selectedPrescription.setId(phone);
+            selectedPrescription.setPatientPhone(phone);
             selectedPrescription.setIssueDate(issue_date);
             selectedPrescription.setExpiryDate(expiry_date);
             selectedPrescription.setStatus(status);

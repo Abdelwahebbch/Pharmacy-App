@@ -19,12 +19,13 @@ public class PatientsDAO {
                 PreparedStatement stm = conn.prepareStatement(query);
                 ResultSet res = stm.executeQuery()) {
             while (res.next()) {
-                patientList.add(new Patient(res.getString("patient_id"), res.getString("patient_name"),
-                        res.getString("patient_phone"), res.getDate("patient_date"), res.getString("patient_note")));
+                patientList.add(new Patient(res.getString("patient_phone"), res.getString("patient_name"),
+                        res.getDate("patient_date"), res.getString("patient_note")));
             }
 
         } catch (ClassNotFoundException | SQLException e) {
             // TODO Auto-generated catch block
+            System.err.println("Error PatientDAO");
             e.printStackTrace();
         }
 

@@ -12,8 +12,8 @@ import javafx.collections.ObservableList;
 
 public class MedicationDAO {
 
-    public static void LoadAllMedecins(ObservableList<Medication> medicationList) {
-        String query = "select * from medecins ";
+    public static void LoadAllmedications(ObservableList<Medication> medicationList) {
+        String query = "select * from medications ";
         // Initialize category options
 
         try (Connection conn = DataBaseConnection.getConnection();
@@ -33,7 +33,7 @@ public class MedicationDAO {
     }
 
     public static void updateMedications(ObservableList<Medication> medicationList) {
-        String query = "update medecins set med_name = ? , med_categ = ? , med_price = ? , med_quantity = ? , med_exp= ? where med_id = ? ";
+        String query = "update medications set med_name = ? , med_categ = ? , med_price = ? , med_quantity = ? , med_exp= ? where med_id = ? ";
 
         try (Connection conn = DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query)) {
@@ -63,7 +63,7 @@ public class MedicationDAO {
 
     public static void deleteMedications(ObservableList<Medication> medicationList) {
 
-        String query = "delete from  medecins where med_id = ? ";
+        String query = "delete from  medications where med_id = ? ";
 
         try (Connection conn = DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query)) {
@@ -87,9 +87,9 @@ public class MedicationDAO {
 
     // TODO
     public static void addMedications(ObservableList<Medication> medicationList) {
-        String query = "INSERT INTO medecins (med_id, med_name, med_categ, med_price, med_quantity, med_exp) "
+        String query = "INSERT INTO medications (med_name, med_categ, med_price, med_quantity, med_exp) "
                 +
-                "VALUES ('MED_NUM_'||MED_IS_SEQ.NEXTVAL, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query)) {

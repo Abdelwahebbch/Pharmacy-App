@@ -9,6 +9,8 @@ import com.pharmacy.Model.Prescription;
 import com.pharmacy.util.DataBaseConnection;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class PrescriptionDAO {
 
@@ -20,15 +22,14 @@ public class PrescriptionDAO {
                 ResultSet res = stm.executeQuery()) {
 
             while (res.next()) {
-                prescriptionList.add( new Prescription(
-                        res.getString("pres_id"),
+                prescriptionList.add(new Prescription(
+                        res.getString("patient_id"),
                         res.getString("patient_name"),
                         res.getString("doctor_name"),
                         res.getDate("issue_date"),
                         res.getDate("med_exp"),
                         res.getString("Status"),
-                        res.getString("medications"))
-               );
+                        res.getString("medications")));
             }
 
         } catch (ClassNotFoundException | SQLException e) {
@@ -38,14 +39,15 @@ public class PrescriptionDAO {
     }
 
     public static void AddPrescription(ObservableList<Prescription> prescriptionList) {
-        String query = "INSERT INTO prescriptions (pres_id, patient_name, doctor_name, issue_date, med_exp, status, medications) "
+        String query = "INSERT INTO prescriptions ( patient_id ,patient_name, doctor_name, issue_date, med_exp, status, medications) "
                 +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?,?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query)) {
             for (Prescription p : prescriptionList) {
-                stm.setString(1, p.getId());
+
+                stm.setString(1, p.getPatientPhone());
                 stm.setString(2, p.getPatientName());
                 stm.setString(3, p.getDoctorName());
                 stm.setDate(4, p.getIssueDate());
@@ -54,7 +56,10 @@ public class PrescriptionDAO {
                 stm.setString(7, p.getMedications());
                 int res = stm.executeUpdate();
                 if (res != 0) {
-                    System.out.println("The prescriptions " + p.getDoctorName() + " was added");
+                    // System.out.println("The prescriptions " + p.getDoctorName() + " was added");
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setContentText("The prescriptions " + p.getDoctorName() + " was added");
+                    alert.showAndWait();
                 } else {
                     System.err.println("no addeed !! ");
                 }
@@ -73,13 +78,13 @@ public class PrescriptionDAO {
         try (Connection conn = DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query)) {
             for (Prescription p : prescriptionList) {
-                stm.setString(1, p.getId());
+                stm.setString(1, p.getPatientPhone());
 
                 int rowsAffected = stm.executeUpdate();
                 if (rowsAffected > 0) {
-                    System.out.println("Prescription with ID " + p.getId() + " deleted successfully.");
+                    System.out.println("Prescription with ID " + p.getPatientPhone() + " deleted successfully.");
                 } else {
-                    System.out.println("No Prescription delete for ID " + p.getId());
+                    System.out.println("No Prescription delete for ID " + p.getPatientPhone());
                 }
             }
         } catch (Exception e) {
@@ -92,33 +97,49 @@ public class PrescriptionDAO {
     }
 
     public static void updatePrescription(ObservableList<Prescription> prescriptionList) {
-        String query = "update prescriptions set pres_id = ? , patient_name = ? , doctor_name = ? , issue_date = ? , med_exp = ? ,status = ? ,medications = ?  where pres_id = ? ";
+        String query = "update prescriptions set pres_id = ? , patient_name = ? , doctor_name = ? , issue_date = ? , med_exp = ? ,status = ?"
+                + " ,medications = ?  where patient_name = ? and issue_date = ? and med_exp = ? and status = ?  ";
 
         try (Connection conn = DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query)) {
             for (Prescription p : prescriptionList) {
 
-                stm.setString(1, p.getId());
+                stm.setString(1, p.getPatientPhone());
                 stm.setString(2, p.getPatientName());
                 stm.setString(3, p.getDoctorName());
                 stm.setDate(4, p.getIssueDate());
                 stm.setDate(5, p.getExpiryDate());
                 stm.setString(6, p.getStatus());
                 stm.setString(7, p.getMedications());
-                stm.setString(8, p.getId());
+                stm.setString(8, p.getPatientName());
+                stm.setDate(9, p.getIssueDate());
+                stm.setDate(10, p.getExpiryDate());
+                stm.setString(11, p.getStatus());
 
                 int rowsAffected = stm.executeUpdate();
                 if (rowsAffected > 0) {
-                    System.out.println("prescription with phone number << " + p.getId() + " >> updated successfully.");
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setContentText(
+                            "prescription with phone number << " + p.getPatientPhone()
+                                    + " >> was updated successfully.");
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
                 } else {
-                    System.out.println("No prescription updated for phone number" + p.getId());
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setContentText("No prescription updated for phone number " + p.getPatientPhone());
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
                 }
             }
             prescriptionList.clear();
         } catch (Exception e) {
-            System.err.println("Error when updating ");
-            System.err.println(e.getMessage());
-
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setContentText(e.getMessage());
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("Error when updating ");
+            alert.showAndWait();
         }
     }
 

@@ -11,8 +11,6 @@ import com.pharmacy.Model.Medication;
 import com.pharmacy.Model.Patient;
 import com.pharmacy.Model.Prescription;
 import com.pharmacy.Model.Sale;
-import com.pharmacy.util.SceneSwitcher;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -120,7 +118,7 @@ public class SalesController implements Initializable {
         cartQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         cartUnitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         cartTotalColumn.setCellValueFactory(new PropertyValueFactory<>("total"));
-        MedicationDAO.LoadAllMedecins(MedicationList);
+        MedicationDAO.LoadAllmedications(MedicationList);
         productsTable.setItems(MedicationList);
         PrescriptionDAO.loadPrescription(prescriptionList);
         PatientsDAO.LoadAllPatients(patientList);
@@ -296,7 +294,7 @@ public class SalesController implements Initializable {
             customerNameLabel.setText(selectedClient.getName());
             customerPhoneLabel.setText(selectedClient.getPhone());
             for (Prescription p : prescriptionList) {
-                if (p.getId().contains(selectedClient.getId())) {
+                if (p.getPatientPhone().contains(selectedClient.getPhone())) {
                     secFilteredList.add(p);
                 }
             }
