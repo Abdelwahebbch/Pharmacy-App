@@ -5,7 +5,7 @@ create or replace procedure create_medecin (
    quantity number
 ) as
 begin
-   insert into medecins values ( id,
+   insert into medications values ( id,
                                  med_name,
                                  price,
                                  quantity );

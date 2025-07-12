@@ -1,5 +1,5 @@
 CREATE OR REPLACE TRIGGER trg_low_stock
-AFTER UPDATE OF med_quantity ON medecins
+AFTER UPDATE OF med_quantity ON medications
 FOR EACH ROW
 WHEN (NEW.med_quantity < 10 AND NEW.med_quantity < OLD.med_quantity)
 BEGIN
