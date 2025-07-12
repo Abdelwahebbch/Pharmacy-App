@@ -15,38 +15,38 @@ import javafx.scene.control.Alert.AlertType;
 public class PrescriptionDAO {
 
     public static void loadPrescription(ObservableList<Prescription> prescriptionList) {
-        String query = "SELECT * FROM prescriptions ";
+        String query = "SELECT * FROM prescriptions";
 
         try (Connection conn = DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query);
                 ResultSet res = stm.executeQuery()) {
 
+            prescriptionList.clear();
             while (res.next()) {
                 prescriptionList.add(new Prescription(
+                        res.getString("pres_id"),
                         res.getString("patient_id"),
                         res.getString("patient_name"),
                         res.getString("doctor_name"),
                         res.getDate("issue_date"),
                         res.getDate("med_exp"),
-                        res.getString("Status"),
+                        res.getString("status"),
                         res.getString("medications")));
             }
 
         } catch (ClassNotFoundException | SQLException e) {
-            System.err.println("Erreur lors du chargement des données !");
-            e.printStackTrace();
+            showError("Erreur lors du chargement des prescriptions", e.getMessage());
         }
     }
 
-    public static void AddPrescription(ObservableList<Prescription> prescriptionList) {
-        String query = "INSERT INTO prescriptions ( patient_id ,patient_name, doctor_name, issue_date, med_exp, status, medications) "
-                +
-                "VALUES (?,?, ?, ?, ?, ?, ?)";
+    public static void addPrescriptions(ObservableList<Prescription> prescriptions) {
+        String query = "INSERT INTO prescriptions (patient_id, patient_name, doctor_name, issue_date, " +
+                "med_exp, status, medications)VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query)) {
-            for (Prescription p : prescriptionList) {
 
+            for (Prescription p : prescriptions) {
                 stm.setString(1, p.getPatientPhone());
                 stm.setString(2, p.getPatientName());
                 stm.setString(3, p.getDoctorName());
@@ -54,56 +54,56 @@ public class PrescriptionDAO {
                 stm.setDate(5, p.getExpiryDate());
                 stm.setString(6, p.getStatus());
                 stm.setString(7, p.getMedications());
+
                 int res = stm.executeUpdate();
-                if (res != 0) {
-                    // System.out.println("The prescriptions " + p.getDoctorName() + " was added");
-                    Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setContentText("The prescriptions " + p.getDoctorName() + " was added");
-                    alert.showAndWait();
+                if (res > 0) {
+                    showInfo("Ajout réussi", "Prescription de \" " + p.getPatientName() + " \" ajoutée avec succès.");
                 } else {
-                    System.err.println("no addeed !! ");
+                    showError("Échec de l'ajout",
+                            "La prescription de \" " + p.getPatientName() + " \" n'a pas été ajoutée.");
                 }
             }
-            prescriptionList.clear();
+
+            prescriptions.clear();
+
         } catch (ClassNotFoundException | SQLException e) {
-            // TODO Auto-generated catch block
-            System.err.println("VCC");
-            e.printStackTrace();
+            showError("Erreur lors de l'ajout des prescriptions", e.getMessage());
         }
     }
 
-    public static void deletePrescription(ObservableList<Prescription> prescriptionList) {
-        String query = "delete from  prescriptions where pres_id = ? ";
+    public static void deletePrescriptions(ObservableList<Prescription> prescriptions) {
+        String query = "DELETE FROM prescriptions WHERE patient_id = ?";
 
         try (Connection conn = DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query)) {
-            for (Prescription p : prescriptionList) {
-                stm.setString(1, p.getPatientPhone());
 
-                int rowsAffected = stm.executeUpdate();
-                if (rowsAffected > 0) {
-                    System.out.println("Prescription with ID " + p.getPatientPhone() + " deleted successfully.");
+            for (Prescription p : prescriptions) {
+                stm.setString(1, p.getPatientPhone());
+                int rows = stm.executeUpdate();
+
+                if (rows > 0) {
+                    showInfo("Suppression réussie", "Prescription de " + p.getPatientName() + " supprimée.");
                 } else {
-                    System.out.println("No Prescription delete for ID " + p.getPatientPhone());
+                    showInfo("Aucune suppression", "Aucune prescription trouvée pour " + p.getPatientName());
                 }
             }
-        } catch (Exception e) {
-            System.err.println("Error when deleting ");
-            System.err.println(e.getMessage());
 
+        } catch (ClassNotFoundException | SQLException e) {
+            showError("Erreur lors de la suppression", e.getMessage());
+        } finally {
+            prescriptions.clear();
         }
-        prescriptionList.clear();
-
     }
 
-    public static void updatePrescription(ObservableList<Prescription> prescriptionList) {
-        String query = "update prescriptions set pres_id = ? , patient_name = ? , doctor_name = ? , issue_date = ? , med_exp = ? ,status = ?"
-                + " ,medications = ?  where patient_name = ? and issue_date = ? and med_exp = ? and status = ?  ";
+    public static void updatePrescriptions(ObservableList<Prescription> prescriptions) {
+        String query = "UPDATE prescriptions SET patient_id = ?,patient_name = ?,doctor_name = ?,issue_date = ?, med_exp = ?, status = ?,"
+                +
+                " medications = ? WHERE pres_id = ? ";
 
         try (Connection conn = DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query)) {
-            for (Prescription p : prescriptionList) {
 
+            for (Prescription p : prescriptions) {
                 stm.setString(1, p.getPatientPhone());
                 stm.setString(2, p.getPatientName());
                 stm.setString(3, p.getDoctorName());
@@ -111,36 +111,38 @@ public class PrescriptionDAO {
                 stm.setDate(5, p.getExpiryDate());
                 stm.setString(6, p.getStatus());
                 stm.setString(7, p.getMedications());
-                stm.setString(8, p.getPatientName());
-                stm.setDate(9, p.getIssueDate());
-                stm.setDate(10, p.getExpiryDate());
-                stm.setString(11, p.getStatus());
+                stm.setString(8, p.getId());
 
-                int rowsAffected = stm.executeUpdate();
-                if (rowsAffected > 0) {
-                    Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setContentText(
-                            "prescription with phone number << " + p.getPatientPhone()
-                                    + " >> was updated successfully.");
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText(null);
-                    alert.showAndWait();
+                int rows = stm.executeUpdate();
+                if (rows > 0) {
+                    showInfo("Mise à jour réussie", "Prescription de " + p.getPatientName() + " mise à jour.");
                 } else {
-                    Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setContentText("No prescription updated for phone number " + p.getPatientPhone());
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText(null);
-                    alert.showAndWait();
+                    showInfo("Aucune mise à jour",
+                            "Aucune prescription mise à jour pour  \" " + p.getPatientName() + " \"");
                 }
             }
-            prescriptionList.clear();
-        } catch (Exception e) {
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setContentText(e.getMessage());
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText("Error when updating ");
-            alert.showAndWait();
+
+        } catch (ClassNotFoundException | SQLException e) {
+            showError("Erreur lors de la mise à jour", e.getMessage());
+        } finally {
+            prescriptions.clear();
         }
     }
 
+    // === Méthodes d'affichage des alertes ===
+    private static void showInfo(String title, String message) {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private static void showError(String title, String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Erreur");
+        alert.setHeaderText(title);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 }

@@ -6,9 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Year;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import com.google.common.util.concurrent.AtomicDouble;
 import com.pharmacy.Model.DashboardStats;
 import com.pharmacy.Model.Medication;
 import com.pharmacy.Model.Sale;

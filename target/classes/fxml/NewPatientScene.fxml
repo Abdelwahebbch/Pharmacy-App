@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -62,24 +61,18 @@
                                     <Label text="Patient:" />
                                     <TextField fx:id="patientNameField" GridPane.columnIndex="1" />
                                     
-                                          <Label text="Doctor:" GridPane.rowIndex="2" />
+                                          <Label text="Family Doctor :" GridPane.rowIndex="2" />
                                     <TextField fx:id="doctorNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     
-                                          <Label text="Issue Date:" GridPane.rowIndex="3" />
-                                    <DatePicker fx:id="issueDatePicker" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                          <Label text="Birthday" GridPane.rowIndex="3" />
+                                    <DatePicker fx:id="birthdayDatePicker" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     
-                                          <Label text="Expiry Date:" GridPane.rowIndex="4" />
-                                    <DatePicker fx:id="expiryDatePicker" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    
-                                          <Label text="Status:" GridPane.rowIndex="5" />
-                                    <ComboBox fx:id="statusComboBox" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    
-                                          <Label text="Medications:" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                                          <Label text="Notes :" GridPane.rowIndex="6" GridPane.valignment="TOP">
                                        <GridPane.margin>
                                           <Insets top="5.0" />
                                        </GridPane.margin>
                                     </Label>
-                                    <TextArea fx:id="medicationsArea" prefHeight="120.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <TextArea fx:id="notesArea" prefHeight="120.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                     <TextField fx:id="PhoneField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="Phone number :" GridPane.rowIndex="1" />
                                  </children>
@@ -90,9 +83,9 @@
                                     <!-- Action Buttons -->
                               <HBox alignment="CENTER" spacing="10.0">
                                  <children>
-                                    <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddPrescription" prefWidth="80.0" style="-fx-background-color: #2ecc71;" text="Add" textFill="WHITE" />
-                                    <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeletePrescription" prefWidth="80.0" style="-fx-background-color: #e74c3c;" text="Cancel" textFill="WHITE" />
-                                    <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClearFields" prefWidth="80.0" text="Clear" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddPatientButton" prefWidth="80.0" style="-fx-background-color: #2ecc71;" text="Add" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" onAction="#handleCancelButton" prefWidth="80.0" style="-fx-background-color: #e74c3c;" text="Cancel" textFill="WHITE" />
+                                    <Button mnemonicParsing="false" onAction="#handleClearFields" prefWidth="80.0" text="Clear" />
                                  </children>
                               </HBox>
                               

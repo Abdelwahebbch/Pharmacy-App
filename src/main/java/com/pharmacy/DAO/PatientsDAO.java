@@ -31,4 +31,31 @@ public class PatientsDAO {
 
     }
 
+    public static void createPatient(Patient p) {
+        String query = "INSERT INTO patients (patient_phone, patient_name,patient_date,patient_note, family_doc) VALUES (?, ?, ?, ?,?)";
+        try (Connection conn = DataBaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, p.getPhone());
+            stmt.setString(2, p.getName());
+            stmt.setDate(3, p.getBirthday());
+            stmt.setString(4, p.getNote());
+            stmt.setString(5, p.getFamilyDoctor());
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createPatient(String phone, String name) {
+        String query = "INSERT INTO patients (patient_phone, patient_name) VALUES (?, ?)";
+        try (Connection conn = DataBaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, phone);
+            stmt.setString(2, name);
+            stmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

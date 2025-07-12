@@ -2,25 +2,29 @@ package com.pharmacy.Model;
 
 import java.sql.Date;
 
-
 public class Patient {
 
     private String name;
     private String phone;
     private Date birthday;
     private String note;
+    private String familyDoctor;
 
+    public Patient(String name, String phone, String familyDoctor, Date birthday, String note) {
+        this.name = name;
+        this.phone = phone;
+        this.birthday = birthday;
+        this.note = note;
+        this.familyDoctor = familyDoctor;
+    }
 
     public Patient(String phone, String name, Date birthday, String note) {
-     
+
         this.name = name;
         this.phone = phone;
         this.birthday = birthday;
         this.note = note;
     }
-
- 
-    
 
     public String getName() {
         return name;
@@ -57,6 +61,14 @@ public class Patient {
     @Override
     public String toString() {
         return this.name + " / " + this.phone;
+    }
+
+    public String getFamilyDoctor() {
+        return familyDoctor;
+    }
+
+    public void setFamilyDoctor(String familyDoctor) {
+        this.familyDoctor = familyDoctor;
     }
 
 }
