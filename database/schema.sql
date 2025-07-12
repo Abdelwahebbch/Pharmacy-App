@@ -33,6 +33,7 @@ create table prescriptions (
 create table patients (
    patient_phone varchar2(50) primary key not null,
    patient_name  varchar2(50),
+   family_doc VARCHAR2(30),
    patient_date  date,
    patient_note  varchar2(500)
 );
@@ -46,7 +47,9 @@ create table sales (
    sale_quantity number,
    sale_price    number,
    sale_date     date,
-   sale_categ    varchar2(50)
+   sale_categ    varchar2(50),
+   constraint fk_med_name foreign key ( med_name )
+      references medications ( med_id )
 );
 
 
