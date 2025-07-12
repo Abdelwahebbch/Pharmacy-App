@@ -3,7 +3,6 @@ package com.pharmacy.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,6 +19,12 @@ public class PatientController {
     private Button addButton;
 
     @FXML
+    private TableColumn<?, ?> birthdayColumn;
+
+    @FXML
+    private DatePicker birthdayDatePicker;
+
+    @FXML
     private Button clearButton;
 
     @FXML
@@ -32,22 +37,7 @@ public class PatientController {
     private TextField doctorNameField;
 
     @FXML
-    private TableColumn<?, ?> expiryDateColumn;
-
-    @FXML
-    private DatePicker expiryDatePicker;
-
-    @FXML
-    private TableColumn<?, ?> idColumn;
-
-    @FXML
-    private TableColumn<?, ?> issueDateColumn;
-
-    @FXML
-    private DatePicker issueDatePicker;
-
-    @FXML
-    private TextArea medicationsArea;
+    private TextArea notesArea;
 
     @FXML
     private TableColumn<?, ?> patientNameColumn;
@@ -56,22 +46,19 @@ public class PatientController {
     private TextField patientNameField;
 
     @FXML
-    private TableView<?> prescriptionTable;
+    private TableView<?> patientsTable;
+
+    @FXML
+    private TableColumn<?, ?> phoneColumn;
 
     @FXML
     private TextField searchField;
 
     @FXML
-    private TableColumn<?, ?> statusColumn;
-
-    @FXML
-    private ComboBox<?> statusComboBox;
-
-    @FXML
     private Button updateButton;
 
     @FXML
-    void handleAddPrescription(ActionEvent event) {
+    void handleAddPatient(ActionEvent event) {
 
     }
 
@@ -81,12 +68,7 @@ public class PatientController {
     }
 
     @FXML
-    void handleCreateSale(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleDeletePrescription(ActionEvent event) {
+    void handleDeletePatient(ActionEvent event) {
 
     }
 
@@ -96,17 +78,12 @@ public class PatientController {
     }
 
     @FXML
-    void handlePrintPrescription(ActionEvent event) {
+    void handleSearchPatient(ActionEvent event) {
 
     }
 
     @FXML
-    void handleSearchPrescription(ActionEvent event) {
-
-    }
-
-    @FXML
-    void handleUpdatePrescription(ActionEvent event) {
+    void handleUpdatePatient(ActionEvent event) {
 
     }
 
