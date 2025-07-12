@@ -10,6 +10,14 @@ public class Medication {
     private int quantity;
     private Date expiryDate;
     
+    public Medication(String name, String category, double price, int quantity, Date expiryDate) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+        this.quantity = quantity;
+        this.expiryDate = expiryDate;
+    }
+
     public Medication(String id , String name, String category, double price, int quantity, Date expiryDate) {
         this.id = id;
         this.name = name;

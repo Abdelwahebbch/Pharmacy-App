@@ -2,190 +2,156 @@ package com.pharmacy.controller;
 
 import com.pharmacy.DAO.MedicationDAO;
 import com.pharmacy.Model.Medication;
+import com.pharmacy.Validation.Validators;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.Button;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class InventoryController implements Initializable {
 
-    @FXML
-    private TableView<Medication> medicationTable;
-    @FXML
-    private TextField nameField;
-    @FXML
-    private TextField priceField;
-    @FXML
-    private TextField quantityField;
-    @FXML
-    private ComboBox<String> categoryComboBox;
-    @FXML
-    private DatePicker expiryDatePicker;
-    @FXML
-    private Button addButton;
-    @FXML
-    private Button updateButton;
-    @FXML
-    private Button deleteButton;
-    @FXML
-    private TextField searchField;
-    @FXML
-    private TableColumn<?, ?> name;
-    @FXML
-    private TableColumn<?, ?> price;
-    @FXML
-    private TableColumn<?, ?> quantity;
-    @FXML
-    private TableColumn<?, ?> category;
-    @FXML
-    private TableColumn<?, ?> exp;
+    @FXML private TableView<Medication> medicationTable;
+    @FXML private TextField nameField, priceField, quantityField, searchField;
+    @FXML private ComboBox<String> categoryComboBox;
+    @FXML private DatePicker expiryDatePicker;
+    @FXML private Button addButton, updateButton, deleteButton;
+    @FXML private TableColumn<Medication, String> name, category;
+    @FXML private TableColumn<Medication, Double> price;
+    @FXML private TableColumn<Medication, Integer> quantity;
+    @FXML private TableColumn<Medication, Date> exp;
 
-    private ObservableList<Medication> medicationList = FXCollections.observableArrayList();
-    private ObservableList<Medication> newMedicationsList = FXCollections.observableArrayList();
-    private ObservableList<Medication> updatedMedicationsList = FXCollections.observableArrayList();
-    private ObservableList<Medication> deletedMedicationsList = FXCollections.observableArrayList();
+    private final ObservableList<Medication> medicationList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initializeColumns();
+        loadMedications();
+        categoryComboBox.setItems(FXCollections.observableArrayList(
+                "Antibiotics", "Pain Relief", "Vitamins", "Cardiac", "Respiratory", "Gastrointestinal", "Others"
+        ));
+    }
+
+    private void initializeColumns() {
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         category.setCellValueFactory(new PropertyValueFactory<>("category"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
         quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         exp.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
-        MedicationDAO.LoadAllMedecins(medicationList);
-        categoryComboBox.setItems(FXCollections.observableArrayList(
-                "Antibiotics", "Pain Relief", "Vitamins", "Cardiac", "Respiratory", "Gastrointestinal", "Others"));
+    }
+
+    private void loadMedications() {
+        medicationList.clear();
+        MedicationDAO.LoadAllmedications(medicationList);
         medicationTable.setItems(medicationList);
     }
 
     @FXML
     private void handleAddMedication() {
-        try {
-            String name = nameField.getText();
-            String category = categoryComboBox.getValue();
-            double price = Double.parseDouble(priceField.getText());
-            int quantity = Integer.parseInt(quantityField.getText());
-            Date expiryDate = java.sql.Date.valueOf(expiryDatePicker.getValue());
+        Medication med = buildMedicationFromFields();
+        if (med == null) return;
 
-            if (name.isEmpty() || category == null || expiryDate == null) {
-                // Show error message
-                return;
-            }
-
-            Medication newMedication = new Medication("X", name, category, price, quantity, expiryDate);
-            medicationList.add(newMedication);
-            newMedicationsList.add(newMedication);
-
-            // Clear fields
-            clearFields();
-
-        } catch (NumberFormatException e) {
-            // Show error message for invalid number format
+        if (!Validators.MedicationSearch(medicationList, med.getName())) {
+            System.err.println("Medication already exists.");
+            // TODO: replace with Alert
+            return;
         }
+
+        MedicationDAO.addMedications(FXCollections.observableArrayList(med));
+        loadMedications();
+        clearFields();
     }
 
     @FXML
     private void handleUpdateMedication() {
-        Medication selectedMedication = medicationTable.getSelectionModel().getSelectedItem();
-        if (selectedMedication == null) {
-            // Show error message
-            return;
-        }
+        Medication selected = medicationTable.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
 
-        try {
-            String name = nameField.getText();
-            String category = categoryComboBox.getValue();
-            double price = Double.parseDouble(priceField.getText());
-            int quantity = Integer.parseInt(quantityField.getText());
-            Date expiryDate = java.sql.Date.valueOf(expiryDatePicker.getValue());
+        Medication updated = buildMedicationFromFields();
+        if (updated == null) return;
 
-            if (name.isEmpty() || category == null || expiryDate == null) {
-                // Show error message
-                return;
-            }
+        updated.setId(selected.getId());
 
-            selectedMedication.setName(name);
-            selectedMedication.setCategory(category);
-            selectedMedication.setPrice(price);
-            selectedMedication.setQuantity(quantity);
-            selectedMedication.setExpiryDate(expiryDate);
-
-            // Refresh table
-            medicationTable.refresh();
-            updatedMedicationsList
-                    .add(new Medication(selectedMedication.getId(), name, category, price, quantity, expiryDate));
-            MedicationDAO.updateMedications(updatedMedicationsList);
-            // Clear fields
-            clearFields();
-
-        } catch (NumberFormatException e) {
-            // Show error message for invalid number format
-        }
+        MedicationDAO.updateMedications(FXCollections.observableArrayList(updated));
+        loadMedications();
+        clearFields();
     }
 
     @FXML
     private void handleDeleteMedication() {
-        Medication selectedMedication = medicationTable.getSelectionModel().getSelectedItem();
-        if (selectedMedication == null) {
-            // Show error message
-            return;
-        }
+        Medication selected = medicationTable.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
 
-        deletedMedicationsList.add(selectedMedication);
-        MedicationDAO.deleteMedications(deletedMedicationsList);
-        medicationList.remove(selectedMedication);
+        MedicationDAO.deleteMedications(FXCollections.observableArrayList(selected));
+        medicationList.remove(selected);
         clearFields();
     }
 
     @FXML
     private void handleSearchMedication() {
-        String searchTerm = searchField.getText().toLowerCase();
+        String searchTerm = searchField.getText().trim().toLowerCase();
 
         if (searchTerm.isEmpty()) {
             medicationTable.setItems(medicationList);
             return;
         }
 
-        ObservableList<Medication> filteredList = FXCollections.observableArrayList();
-        for (Medication medication : medicationList) {
-            if (medication.getName().toLowerCase().contains(searchTerm) ||
-                    medication.getCategory().toLowerCase().contains(searchTerm)) {
-                filteredList.add(medication);
+        ObservableList<Medication> filtered = FXCollections.observableArrayList();
+        for (Medication med : medicationList) {
+            if (med.getName().toLowerCase().contains(searchTerm)
+                    || med.getCategory().toLowerCase().contains(searchTerm)) {
+                filtered.add(med);
             }
         }
-
-        medicationTable.setItems(filteredList);
+        medicationTable.setItems(filtered);
     }
 
     @FXML
     private void handleMedicationSelection() {
-        Medication selectedMedication = medicationTable.getSelectionModel().getSelectedItem();
-        if (selectedMedication != null) {
-            nameField.setText(selectedMedication.getName());
-            categoryComboBox.setValue(selectedMedication.getCategory());
-            priceField.setText(String.valueOf(selectedMedication.getPrice()));
-            quantityField.setText(String.valueOf(selectedMedication.getQuantity()));
-            expiryDatePicker.setValue(selectedMedication.getExpiryDate().toLocalDate());
+        Medication selected = medicationTable.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            nameField.setText(selected.getName());
+            categoryComboBox.setValue(selected.getCategory());
+            priceField.setText(String.valueOf(selected.getPrice()));
+            quantityField.setText(String.valueOf(selected.getQuantity()));
+            expiryDatePicker.setValue(selected.getExpiryDate().toLocalDate());
         }
     }
 
     @FXML
     private void clearFields() {
         nameField.clear();
-        categoryComboBox.setValue(null);
         priceField.clear();
         quantityField.clear();
+        categoryComboBox.setValue(null);
         expiryDatePicker.setValue(null);
+    }
+
+    private Medication buildMedicationFromFields() {
+        try {
+            String name = nameField.getText().trim();
+            String category = categoryComboBox.getValue();
+            LocalDate localDate = expiryDatePicker.getValue();
+            double price = Double.parseDouble(priceField.getText().trim());
+            int quantity = Integer.parseInt(quantityField.getText().trim());
+
+            if (name.isEmpty() || category == null || localDate == null || price < 0 || quantity < 0) {
+                System.err.println("Invalid fields");
+                return null;
+            }
+
+            Date expiryDate = Date.valueOf(localDate);
+            return new Medication( name, category, price, quantity, expiryDate);
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid number format");
+            return null;
+        }
     }
 }

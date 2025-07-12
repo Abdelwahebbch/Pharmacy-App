@@ -1,90 +1,97 @@
 package com.pharmacy.controller;
 
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import com.pharmacy.DAO.DashBoardDAO;
+import com.pharmacy.Model.DashboardStats;
+import com.pharmacy.Model.Medication;
+import com.pharmacy.Model.Sale;
 
-import com.pharmacy.util.SceneSwitcher;
-
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class DashboardController {
-    @FXML
-    public AnchorPane MainScene;
+public class DashboardController implements Initializable {
 
-    @FXML
-    private Button LogoutButton;
+    // Data Lists
+    private final ObservableList<Medication> lowMedList = FXCollections.observableArrayList();
+    private final ObservableList<Sale> recentSaleList = FXCollections.observableArrayList();
+    private final ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();
+    private final XYChart.Series<String, Number> series = new XYChart.Series<>();
 
-    @FXML
-    private PieChart categoryPieChart;
+    // FXML components
+    @FXML private TableColumn<Medication, String> lowMedicationColumn;
+    @FXML private TableColumn<Medication, String> categoryColumn;
+    @FXML private TableColumn<Medication, Integer> lowQuantityColumn;
+    @FXML private TableView<Medication> lowStockTable;
 
-    @FXML
-    private Button dashboardButton;
+    @FXML private TableColumn<Sale, String> recentMedicationColumn;
+    @FXML private TableColumn<Sale, Integer> recentQuantityColumn;
+    @FXML private TableColumn<Sale, Double> priceColumn;
+    @FXML private TableColumn<Sale, String> dateColumn;
+    @FXML private TableView<Sale> recentSalesTable;
 
-    @FXML
-    private Label expiringItemsLabel;
+    @FXML private PieChart categoryPieChart;
+    @FXML private BarChart<String, Number> salesBarChart;
+    @FXML private LineChart<?, ?> trendsLineChart;
 
-    @FXML
-    private Button inventoryButton;
+    @FXML private Label lowStockLabel;
+    @FXML private Label totalPrescriptionsLabel;
+    @FXML private Label expiringItemsLabel;
+    @FXML private Label totalSalesLabel;
 
-    @FXML
-    private Label lowStockLabel;
-
-    @FXML
-    private TableView<?> lowStockTable;
-
-    @FXML
-    private Button prescriptionsButton;
-
-    @FXML
-    private TableView<?> recentSalesTable;
-
-    @FXML
-    private BarChart<?, ?> salesBarChart;
-
-    @FXML
-    private Button settingsButton;
-
-    @FXML
-    private Label totalPrescriptionsLabel;
-
-    @FXML
-    private Label totalSalesLabel;
-
-    @FXML
-    private LineChart<?, ?> trendsLineChart;
-
-    @FXML
-    void handleDashboardButton(ActionEvent event) {
-        SceneSwitcher.setContent(MainScene, "/fxml/Dashboard.fxml");
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initializeColumns();
+        loadDashboardData();
+        updateUI();
     }
 
-    @FXML
-    void handleInventoryButton(ActionEvent event) throws IOException {
+    private void initializeColumns() {
+        // Low stock columns
+        lowMedicationColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        lowQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        SceneSwitcher.setContent(MainScene, "/fxml/InventoryX.fxml");
+        // Recent sales columns
+        recentMedicationColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        recentQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
     }
 
-    
-    @FXML
-    void handlePrescriptionsButton(ActionEvent event) throws IOException {
-        
-        SceneSwitcher.setContent(MainScene, "/fxml/Prescription.fxml");
-    }
-    
-    @FXML
-    void handleSettingsButton(ActionEvent event) throws IOException {
-        SceneSwitcher.setContent(MainScene, "/fxml/Settings.fxml");
-    }
-    @FXML
-    void handleLogoutButton(ActionEvent event) {
+    private void loadDashboardData() {
+        DashboardStats stats = DashBoardDAO.initializeDashboard(
+                lowMedList, recentSaleList, pieData);
 
+        double currentMonthSales = DashBoardDAO.initialBarCharts(series);
+        lowStockLabel.setText(String.valueOf(stats.lowStock));
+        expiringItemsLabel.setText(String.valueOf(stats.expItems));
+        totalPrescriptionsLabel.setText(String.valueOf(stats.totalPrescriptions));
+        totalSalesLabel.setText(String.format("%.2f TND", currentMonthSales));
     }
 
+    private void updateUI() {
+        // lowStockLabel.setText(String.valueOf(lowStock.get()));
+        // totalPrescriptionsLabel.setText(String.valueOf(totalPrescriptions.get()));
+        // expiringItemsLabel.setText(String.valueOf(expItems.get()));
+        // totalSalesLabel.setText( totalMonthlySales.get()));
+
+        categoryPieChart.setData(pieData);
+        lowStockTable.setItems(lowMedList);
+        recentSalesTable.setItems(recentSaleList);
+
+        series.setName("Sales");
+        salesBarChart.getData().clear();
+        salesBarChart.getData().add(series);
+    }
 }

@@ -1,1 +1,1 @@
-SELECT med_name from medecins WHERE MED_ID ='MED003';
+alter table patients add family_doc VARCHAR2(30);

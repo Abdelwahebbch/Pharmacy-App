@@ -19,7 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class LoginController {
-  
+
     @FXML
     private PasswordField pwd;
 
@@ -40,7 +40,8 @@ public class LoginController {
 
             Parent root = FXMLLoader.load(getClass().getResource("/fxml/PrimaryStage.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-          //  DashboardController.handleDashboardButton();
+            stage.setMaximized(true);
+          //  SceneSwitcher.setContent(DashboardController.MainScene, "/fxml/Dashboard.fxml");
             stage.setScene(new Scene(root));
             stage.show();
         } else {

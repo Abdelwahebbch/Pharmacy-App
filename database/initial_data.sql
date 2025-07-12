@@ -3,7 +3,7 @@ BEGIN
       INSERT INTO prescriptions (
          pres_id, patient_name, doctor_name, issue_date, med_exp, status, medications
       ) VALUES (
-         'PRES_' || TO_CHAR(i, 'FM00'),
+         'PAT' || TO_CHAR(i+1060, 'FM0000'),
          'Patient_' || TO_CHAR(i, 'FM00'),
          'Dr_' || CHR(65 + MOD(i, 26)),
          SYSDATE - MOD(i * 7, 60),         -- issue_date: dates récentes
