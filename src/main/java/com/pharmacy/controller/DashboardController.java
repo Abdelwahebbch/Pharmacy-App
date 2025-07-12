@@ -2,9 +2,6 @@ package com.pharmacy.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import com.google.common.util.concurrent.AtomicDouble;
 import com.pharmacy.DAO.DashBoardDAO;
 import com.pharmacy.Model.DashboardStats;
 import com.pharmacy.Model.Medication;
@@ -32,41 +29,25 @@ public class DashboardController implements Initializable {
     private final XYChart.Series<String, Number> series = new XYChart.Series<>();
 
     // FXML components
-    @FXML
-    private TableColumn<Medication, String> lowMedicationColumn;
-    @FXML
-    private TableColumn<Medication, String> categoryColumn;
-    @FXML
-    private TableColumn<Medication, Integer> lowQuantityColumn;
-    @FXML
-    private TableView<Medication> lowStockTable;
+    @FXML private TableColumn<Medication, String> lowMedicationColumn;
+    @FXML private TableColumn<Medication, String> categoryColumn;
+    @FXML private TableColumn<Medication, Integer> lowQuantityColumn;
+    @FXML private TableView<Medication> lowStockTable;
 
-    @FXML
-    private TableColumn<Sale, String> recentMedicationColumn;
-    @FXML
-    private TableColumn<Sale, Integer> recentQuantityColumn;
-    @FXML
-    private TableColumn<Sale, Double> priceColumn;
-    @FXML
-    private TableColumn<Sale, String> dateColumn;
-    @FXML
-    private TableView<Sale> recentSalesTable;
+    @FXML private TableColumn<Sale, String> recentMedicationColumn;
+    @FXML private TableColumn<Sale, Integer> recentQuantityColumn;
+    @FXML private TableColumn<Sale, Double> priceColumn;
+    @FXML private TableColumn<Sale, String> dateColumn;
+    @FXML private TableView<Sale> recentSalesTable;
 
-    @FXML
-    private PieChart categoryPieChart;
-    @FXML
-    private BarChart<String, Number> salesBarChart;
-    @FXML
-    private LineChart<?, ?> trendsLineChart;
+    @FXML private PieChart categoryPieChart;
+    @FXML private BarChart<String, Number> salesBarChart;
+    @FXML private LineChart<?, ?> trendsLineChart;
 
-    @FXML
-    private Label lowStockLabel;
-    @FXML
-    private Label totalPrescriptionsLabel;
-    @FXML
-    private Label expiringItemsLabel;
-    @FXML
-    private Label totalSalesLabel;
+    @FXML private Label lowStockLabel;
+    @FXML private Label totalPrescriptionsLabel;
+    @FXML private Label expiringItemsLabel;
+    @FXML private Label totalSalesLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
