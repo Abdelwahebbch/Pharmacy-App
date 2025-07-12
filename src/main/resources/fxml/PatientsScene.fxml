@@ -61,9 +61,9 @@
                                        <columns>
                                           <TableColumn fx:id="idColumn" prefWidth="110.0" text="Phone" />
                                           <TableColumn fx:id="patientNameColumn" prefWidth="129.0" text="Patient Name" />
-                                          <TableColumn fx:id="doctorNameColumn" prefWidth="111.0" text="Doctor" />
-                                          <TableColumn fx:id="issueDateColumn" prefWidth="120.0" text="Issue Date" />
-                                          <TableColumn fx:id="expiryDateColumn" prefWidth="120.0" text="Expiry Date" />
+                                          <TableColumn fx:id="doctorNameColumn" prefWidth="111.0" text="Age" />
+                                          <TableColumn fx:id="issueDateColumn" prefWidth="120.0" text="Birthday" />
+                                          <TableColumn fx:id="expiryDateColumn" prefWidth="120.0" text="Total Prescriptions" />
                                           <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Status" />
                                        </columns>
                                     </TableView>
@@ -97,19 +97,19 @@
                                           <Label text="Patient:" />
                                           <TextField fx:id="patientNameField" GridPane.columnIndex="1" />
                                           
-                                          <Label text="Doctor:" GridPane.rowIndex="2" />
+                                          <Label text="Age :" GridPane.rowIndex="2" />
                                           <TextField fx:id="doctorNameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                           
-                                          <Label text="Issue Date:" GridPane.rowIndex="3" />
+                                          <Label text="Birthday :" GridPane.rowIndex="3" />
                                           <DatePicker fx:id="issueDatePicker" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                           
-                                          <Label text="Expiry Date:" GridPane.rowIndex="4" />
+                                          <Label text="First Coming Time :" GridPane.rowIndex="4" />
                                           <DatePicker fx:id="expiryDatePicker" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                           
                                           <Label text="Status:" GridPane.rowIndex="5" />
                                           <ComboBox fx:id="statusComboBox" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                           
-                                          <Label text="Medications:" GridPane.rowIndex="6" GridPane.valignment="TOP">
+                                          <Label text="Note :" GridPane.rowIndex="6" GridPane.valignment="TOP">
                                              <GridPane.margin>
                                                 <Insets top="5.0" />
                                              </GridPane.margin>
