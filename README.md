@@ -140,7 +140,7 @@ Ce projet est open-source (MIT License). Tu peux l'utiliser, le modifier, et le 
 ## 👨‍💻 Auteur
 
 Abdelwaheb Bouchahwa  
-Etudiant en informatique | Passionné par les projets réels 💡  
+Etudiant en informatique 
 📬 Contact : [LinkedIn](https://www.linkedin.com/in/abdelwaheb-bouchahwa-8449a5224/) | [Mail](mailto:bouchahwaabdelwaheb@ieee.org)
 
 ---
