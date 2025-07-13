@@ -71,7 +71,7 @@
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.8</version>
         <configuration>
-          <mainClass>com.pharmacy.app.App</mainClass>
+          <mainClass>com.pharmacy.App</mainClass>
         </configuration>
         <executions>
           <execution>
@@ -104,7 +104,7 @@
                 <argument>--main-jar</argument>
                 <argument>pharmacyapp-1.0-SNAPSHOT.jar</argument>
                 <argument>--main-class</argument>
-                <argument>com.pharmacy.app.App</argument>
+                <argument>com.pharmacy.App</argument>
                 <argument>--type</argument>
                 <argument>exe</argument>
               </arguments>
@@ -119,7 +119,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.pharmacy.app.App</mainClass>
+              <mainClass>com.pharmacy.App</mainClass>
             </manifest>
           </archive>
         </configuration>
