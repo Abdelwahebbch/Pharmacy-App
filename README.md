@@ -60,15 +60,24 @@ src/
 1. **Cloner le repo :**
 
 ```bash
-git clone https://github.com/ton-utilisateur/pharmacy-app.git
+git clone https://github.com/Abdelwahebbch/Pharmacy-App.git
 cd pharmacy-app
 ```
 
 2. **Configurer la base Oracle :**
    - Créer les tables nécessaires :
      ```sql
-     CREATE TABLE patients (...);
+     CREATE TABLE users (...);
+     CREATE TABLE medications (...);
      CREATE TABLE prescriptions (...);
+     CREATE TABLE patients (...);
+     CREATE TABLE sales (...);
+     ```
+   - Créer les séquences nécessaires :
+     ```sql
+     create sequence med_seq start with 1 increment by 1 nocache nocycle;
+     create sequence patient_seq start with 1 increment by 1 nocache nocycle;
+     create sequence pres_seq start with 1 increment by 1 nocache nocycle;
      ```
    - Modifier les informations de connexion dans `DataBaseConnection.java`
 
@@ -118,7 +127,7 @@ PdfGenerator.generatePrescriptionPDF(Prescription p);
 
 ## 🌐 Multilingue (i18n)
 
-Le support des langues se fait via `ResourceBundle`, et sera activé via un menu de sélection dans l'interface graphique (prochainement).
+Le support des langues se fait via `ResourceBundle`, et sera activé via un menu de sélection dans l'interface graphique (prochainement) (This feature is coming soon).
 
 ---
 
@@ -132,7 +141,7 @@ Ce projet est open-source (MIT License). Tu peux l'utiliser, le modifier, et le 
 
 Abdelwaheb Bouchahwa  
 Etudiant en informatique | Passionné par les projets réels 💡  
-📬 Contact : [LinkedIn](https://linkedin.com) | [Mail](mailto:abdel@example.com)
+📬 Contact : [LinkedIn](https://www.linkedin.com/in/abdelwaheb-bouchahwa-8449a5224/) | [Mail](mailto:bouchahwaabdelwaheb@ieee.org)
 
 ---
 
@@ -142,4 +151,4 @@ Etudiant en informatique | Passionné par les projets réels 💡
 - [x] Affichage dynamique des prescriptions
 - [ ] Gestion multilingue
 - [ ] Authentification utilisateur
-- [ ] Dashboard analytique (pie chart, histogrammes)
+- [x] Dashboard analytique (pie chart, histogrammes)
