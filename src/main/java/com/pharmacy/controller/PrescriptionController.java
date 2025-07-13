@@ -5,7 +5,7 @@ import com.pharmacy.DAO.PrescriptionDAO;
 import com.pharmacy.Model.Patient;
 import com.pharmacy.Model.Prescription;
 import com.pharmacy.Validation.Validators;
-import com.pharmacy.util.PdfGenerator;
+//import com.pharmacy.util.PdfGenerator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -240,11 +240,11 @@ public class PrescriptionController implements Initializable {
 
     @FXML
     void handlePrintPrescription(ActionEvent event) {
-        Prescription selected = prescriptionTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            String path = "prescriptions/" + selected.getPatientName() + "_" + selected.getIssueDate() + ".pdf";
-            PdfGenerator.generatePrescriptionPDF(selected);
-            showInfo("PDF généré", "Ordonnance enregistrée sous :\n" + path);
-        }
+        // Prescription selected = prescriptionTable.getSelectionModel().getSelectedItem();
+        // if (selected != null) {
+        //     String path = "prescriptions/" + selected.getPatientName() + "_" + selected.getIssueDate() + ".pdf";
+        //     PdfGenerator.generatePrescriptionPDF(selected);
+        //     showInfo("PDF généré", "Ordonnance enregistrée sous :\n" + path);
+        // }
     }
 }
