@@ -3,7 +3,7 @@ eKarya/
 ├── src/
 │   ├── main/
 │   │   ├── java/
-│   │   │   ├── com/
+│   │   │   └── com/
 │   │   │        └── ekarya/
 │   │   │           ├── app/
 │   │   │           │   └── Main.java
