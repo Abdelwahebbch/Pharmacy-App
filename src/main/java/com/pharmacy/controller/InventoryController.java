@@ -18,15 +18,24 @@ import java.util.ResourceBundle;
 
 public class InventoryController implements Initializable {
 
-    @FXML private TableView<Medication> medicationTable;
-    @FXML private TextField nameField, priceField, quantityField, searchField;
-    @FXML private ComboBox<String> categoryComboBox;
-    @FXML private DatePicker expiryDatePicker;
-    @FXML private Button addButton, updateButton, deleteButton;
-    @FXML private TableColumn<Medication, String> name, category;
-    @FXML private TableColumn<Medication, Double> price;
-    @FXML private TableColumn<Medication, Integer> quantity;
-    @FXML private TableColumn<Medication, Date> exp;
+    @FXML
+    private TableView<Medication> medicationTable;
+    @FXML
+    private TextField nameField, priceField, quantityField, searchField;
+    @FXML
+    private ComboBox<String> categoryComboBox;
+    @FXML
+    private DatePicker expiryDatePicker;
+    @FXML
+    private Button addButton, updateButton, deleteButton;
+    @FXML
+    private TableColumn<Medication, String> name, category;
+    @FXML
+    private TableColumn<Medication, Double> price;
+    @FXML
+    private TableColumn<Medication, Integer> quantity;
+    @FXML
+    private TableColumn<Medication, Date> exp;
 
     private final ObservableList<Medication> medicationList = FXCollections.observableArrayList();
 
@@ -35,8 +44,7 @@ public class InventoryController implements Initializable {
         initializeColumns();
         loadMedications();
         categoryComboBox.setItems(FXCollections.observableArrayList(
-                "Antibiotics", "Pain Relief", "Vitamins", "Cardiac", "Respiratory", "Gastrointestinal", "Others"
-        ));
+                "Antibiotics", "Pain Relief", "Vitamins", "Cardiac", "Respiratory", "Gastrointestinal", "Others"));
     }
 
     private void initializeColumns() {
@@ -49,14 +57,20 @@ public class InventoryController implements Initializable {
 
     private void loadMedications() {
         medicationList.clear();
-        MedicationDAO.LoadAllmedications(medicationList);
-        medicationTable.setItems(medicationList);
+
+        try {
+            MedicationDAO.LoadAllmedications(medicationList);
+            medicationTable.setItems(medicationList);
+        } catch (Exception e) {
+            medicationTable.setItems(null);
+        }
     }
 
     @FXML
     private void handleAddMedication() {
         Medication med = buildMedicationFromFields();
-        if (med == null) return;
+        if (med == null)
+            return;
 
         if (!Validators.MedicationSearch(medicationList, med.getName())) {
             System.err.println("Medication already exists.");
@@ -72,10 +86,12 @@ public class InventoryController implements Initializable {
     @FXML
     private void handleUpdateMedication() {
         Medication selected = medicationTable.getSelectionModel().getSelectedItem();
-        if (selected == null) return;
+        if (selected == null)
+            return;
 
         Medication updated = buildMedicationFromFields();
-        if (updated == null) return;
+        if (updated == null)
+            return;
 
         updated.setId(selected.getId());
 
@@ -87,7 +103,8 @@ public class InventoryController implements Initializable {
     @FXML
     private void handleDeleteMedication() {
         Medication selected = medicationTable.getSelectionModel().getSelectedItem();
-        if (selected == null) return;
+        if (selected == null)
+            return;
 
         MedicationDAO.deleteMedications(FXCollections.observableArrayList(selected));
         medicationList.remove(selected);
@@ -148,7 +165,7 @@ public class InventoryController implements Initializable {
             }
 
             Date expiryDate = Date.valueOf(localDate);
-            return new Medication( name, category, price, quantity, expiryDate);
+            return new Medication(name, category, price, quantity, expiryDate);
         } catch (NumberFormatException e) {
             System.err.println("Invalid number format");
             return null;

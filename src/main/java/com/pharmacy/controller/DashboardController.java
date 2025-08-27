@@ -52,7 +52,7 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeColumns();
-        loadDashboardData();
+      // loadDashboardData();
         updateUI();
     }
 
@@ -85,13 +85,19 @@ public class DashboardController implements Initializable {
         // totalPrescriptionsLabel.setText(String.valueOf(totalPrescriptions.get()));
         // expiringItemsLabel.setText(String.valueOf(expItems.get()));
         // totalSalesLabel.setText( totalMonthlySales.get()));
-
-        categoryPieChart.setData(pieData);
+try {
+            categoryPieChart.setData(pieData);
         lowStockTable.setItems(lowMedList);
         recentSalesTable.setItems(recentSaleList);
+} catch (Exception e) {
+        categoryPieChart.setData(null);
+        lowStockTable.setItems(null);
+        recentSalesTable.setItems(null);
+
 
         series.setName("Sales");
         salesBarChart.getData().clear();
         salesBarChart.getData().add(series);
     }
+}
 }

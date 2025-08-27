@@ -118,11 +118,24 @@ public class SalesController implements Initializable {
         cartQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         cartUnitPriceColumn.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         cartTotalColumn.setCellValueFactory(new PropertyValueFactory<>("total"));
-        MedicationDAO.LoadAllmedications(MedicationList);
-        productsTable.setItems(MedicationList);
-        PrescriptionDAO.loadPrescription(prescriptionList);
-        PatientsDAO.LoadAllPatients(patientList);
-        updateSubtotal();
+
+        try {
+            MedicationDAO.LoadAllmedications(MedicationList); // mrigla
+            productsTable.setItems(MedicationList);
+
+            PrescriptionDAO.loadPrescription(prescriptionList);
+            PatientsDAO.LoadAllPatients(patientList);
+            updateSubtotal();
+
+        } catch (Exception e) {
+
+            productsTable.setItems(null);
+
+            // PrescriptionDAO.loadPrescription(prescriptionList);
+            // PatientsDAO.LoadAllPatients(patientList);
+            // updateSubtotal();
+        }
+
     }
 
     private void updateSubtotal() {
@@ -238,7 +251,6 @@ public class SalesController implements Initializable {
     @FXML
     void handleSearchCustomer(ActionEvent event) {
         String searchTerm = searchField.getText().toLowerCase();
-       
 
         if (searchTerm.isEmpty()) {
             searchResult.setItems(null);

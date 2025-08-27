@@ -59,13 +59,20 @@ public class PrescriptionController implements Initializable {
         issueDateColumn.setCellValueFactory(new PropertyValueFactory<>("issueDate"));
         expiryDateColumn.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
-
         statusComboBox.setItems(STATUS_OPTIONS);
         issueDatePicker.setValue(LocalDate.now());
+        try {
 
-        PrescriptionDAO.loadPrescription(prescriptionList);
-        prescriptionTable.setItems(prescriptionList);
-        PatientsDAO.LoadAllPatients(patientsList);
+            PrescriptionDAO.loadPrescription(prescriptionList);
+            prescriptionTable.setItems(prescriptionList);
+            PatientsDAO.LoadAllPatients(patientsList);
+        } catch (Exception e) {
+
+          //  PrescriptionDAO.loadPrescription(prescriptionList);
+            prescriptionTable.setItems(null);
+          //  PatientsDAO.LoadAllPatients(patientsList);
+        }
+
     }
 
     @FXML
@@ -240,11 +247,13 @@ public class PrescriptionController implements Initializable {
 
     @FXML
     void handlePrintPrescription(ActionEvent event) {
-        // Prescription selected = prescriptionTable.getSelectionModel().getSelectedItem();
+        // Prescription selected =
+        // prescriptionTable.getSelectionModel().getSelectedItem();
         // if (selected != null) {
-        //     String path = "prescriptions/" + selected.getPatientName() + "_" + selected.getIssueDate() + ".pdf";
-        //     PdfGenerator.generatePrescriptionPDF(selected);
-        //     showInfo("PDF généré", "Ordonnance enregistrée sous :\n" + path);
+        // String path = "prescriptions/" + selected.getPatientName() + "_" +
+        // selected.getIssueDate() + ".pdf";
+        // PdfGenerator.generatePrescriptionPDF(selected);
+        // showInfo("PDF généré", "Ordonnance enregistrée sous :\n" + path);
         // }
     }
 }

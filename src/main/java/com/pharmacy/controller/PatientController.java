@@ -121,8 +121,13 @@ public class PatientController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         initializeColumns();
-        PatientsDAO.LoadAllPatients(patientList);
-        patientsTable.setItems(patientList);
+
+        try {
+            PatientsDAO.LoadAllPatients(patientList);
+            patientsTable.setItems(patientList);
+        } catch (Exception e) {
+            patientsTable.setItems(null);
+        }
 
     }
 
