@@ -14,10 +14,10 @@ import javafx.scene.control.Alert.AlertType;
 
 public class PrescriptionDAO {
 
-    public static void loadPrescription(ObservableList<Prescription> prescriptionList) {
+    public static synchronized void loadPrescription(ObservableList<Prescription> prescriptionList) {
         String query = "SELECT * FROM prescriptions";
 
-        try (Connection conn = DataBaseConnection.getConnection();
+        try (Connection conn =  DataBaseConnection.getConnection();
                 PreparedStatement stm = conn.prepareStatement(query);
                 ResultSet res = stm.executeQuery()) {
 
